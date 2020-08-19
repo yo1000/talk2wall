@@ -237,10 +237,6 @@ const styles = {
       width: 160px;
     }
 
-    &.renzokuken {
-      width: 160px;
-    }
-
     @media screen and (max-width: 479px) {
       &.menu-container,
       &.search-container {
@@ -258,72 +254,6 @@ const styles = {
           top: 1px;
         }
       }
-    }
-  `,
-  renzokuken: css`
-    display: flex;
-    position: relative;
-    float: right;
-    top: 9px;
-    height: 23px;
-    margin: 0 2px;
-    padding: 0;
-
-    border: solid 1px #909090;
-    background-color: #909090;
-
-    .box1 {
-      display: inline-block;
-      width: 10%;
-      height: 100%;
-      margin: 0;
-
-      border: solid 1px #909090;
-      border-radius: 0 4px 4px 0;
-      background-color: #000;
-    }
-
-    .box2 {
-      display: inline-block;
-      width: 15%;
-      height: 100%;
-      margin: 0;
-
-      border: solid 1px #909090;
-      border-radius: 4px;
-      background-color: #000;
-    }
-
-    input {
-      display: inline-block;
-      position: relative;
-      top: 0;
-      width: 75%;
-      height: 100%;
-      margin: 0;
- 
-      border: solid 1px #909090;
-      border-radius: 4px 0 0 4px;
-      background-color: #000;
-      /*
-      background: linear-gradient(
-        to right,
-        #000 15%,
-        #2a2066 15%,
-        #2a2066 20%,
-        #4938b3 10%,
-        #000
-      );
-      */
-      background: linear-gradient(
-        to right,
-        #000 10%,
-        #6b7400 10%,
-        #4c5300 15%,
-        #98a500 10%,
-        #000
-      );
-      color: ${colors.white.color};
     }
   `,
   coverTag: css`
@@ -345,17 +275,6 @@ const Title = ({ children }) => (
   </h1>
 )
 
-const Renzokuken = () => (
-  <div css={styles.navigationItem} className="renzokuken">
-    <div css={styles.renzokuken}>
-      <div className="box1"></div>
-      <div className="box2"></div>
-      <input type="text" placeholder="Trigger!"/>
-    </div>
-    <Notice>SPECIAL</Notice>
-  </div>
-)
-
 const NavigationItem = ({ className, notice, children }) => (
   <div css={styles.navigationItem} className={className}>
     <Notice>{notice}</Notice>
@@ -373,7 +292,6 @@ const Navigation = ({ title }) => (
       <Search/>
     </NavigationItem>
     <Title>{title}</Title>
-    <Notice/>
   </nav>
 )
 
