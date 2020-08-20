@@ -69,6 +69,57 @@ const styles = {
     ol, ul {
       margin-left: 1.75rem;
     }
+
+    blockquote {
+      margin: 0 0 1.75rem;
+      padding-left: 1rem;
+
+      font-style: inherit;
+      color: ${colors.darkBlue.color};
+      text-shadow: ${colors.darkBlue.textShadow} 1px 1px;
+      border-left-color: ${colors.darkBlue.color};
+    }
+
+    td, th {
+      border-bottom: 1px solid ${colors.white.color};
+    }
+
+    code,
+    code *,
+    .gatsby-highlight,
+    .gatsby-highlight * {
+      font-family: monospace;
+    }
+
+    .gatsby-highlight {
+      pre[class*="language-"] {
+        position: relative;
+        border-radius: 4px;
+
+        &.line-numbers {
+          padding-left: 5em;
+        }
+      }
+
+      .gatsby-highlight-code-line {
+        display: block;
+        width: calc(100% + 6em);
+        margin-left: -5em;
+        padding-left: 5em;
+
+        background-color: #434343;
+      }
+
+      pre,
+      .line-numbers-rows {
+        max-height: 100%;
+        left: -2em;
+        margin-left: 2em;
+        margin-right: -2em;
+        padding-top: 1em;
+        padding-bottom: 1em;
+      }
+    }
   `,
 }
 
