@@ -130,7 +130,7 @@ const styles = {
   coverImageLogo: css`
     position: relative;
     width: 240px;
-    bottom: 42px;
+    bottom: 50px;
     margin: -30% auto 30%;
 
     @media screen and (max-width: 832px) {

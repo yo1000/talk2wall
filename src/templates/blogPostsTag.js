@@ -44,7 +44,7 @@ const styles = {
   `,
 }
 
-const BlogTagTemplate = ({ data, location }) => {
+const BlogPostsTagTemplate = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
@@ -87,10 +87,10 @@ const BlogTagTemplate = ({ data, location }) => {
   )
 }
 
-export default BlogTagTemplate
+export default BlogPostsTagTemplate
 
 export const pageQuery = graphql`
-  query BlogPostsByTag($tag: String!) {
+  query BlogPostsTagQuery($tag: String!) {
     site {
       siteMetadata {
         title

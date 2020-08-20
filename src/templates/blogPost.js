@@ -6,6 +6,7 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Notice from "../components/notice"
+import StaticImage from "../components/staticImage"
 import colors from "../components/colors"
 import globalStyles from "../components/styles"
 
@@ -149,44 +150,34 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             }
           </div>
         </header>
-        <section
-          css={styles.postBody}
+        <section css={styles.postBody}
           dangerouslySetInnerHTML={{ __html: post.html }}/>
-        <footer>
-          <Bio />
-        </footer>
       </article>
-
-      <nav>
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link to={previous.frontmatter.path
-                ? previous.frontmatter.path
-                : previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
+      <nav css={globalStyles.pageNav}>
+        <ul>
+          {next && (
+            <li className="next">
+              <StaticImage relativePath='arrow-left.png'/>
               <Link to={next.frontmatter.path
                 ? next.frontmatter.path
-                : next.fields.slug} rel="next">
-                {next.frontmatter.title} →
+                : next.fields.slug} rel="next" className="next">
+                {next.frontmatter.title}
               </Link>
-            )}
-          </li>
+            </li>
+          )}
+          {previous && (
+            <li className="prev">
+              <Link to={previous.frontmatter.path
+                ? previous.frontmatter.path
+                : previous.fields.slug} rel="prev" className="prev">
+                {previous.frontmatter.title}
+              </Link>
+              <StaticImage relativePath='arrow-right.png'/>
+            </li>
+          )}
         </ul>
       </nav>
+      <Bio />
     </Layout>
   )
 }

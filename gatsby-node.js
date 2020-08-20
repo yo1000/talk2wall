@@ -1,5 +1,6 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const { createReadStream } = require("fs")
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -31,8 +32,54 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
+  const createPageToPaginated = ({ basePath, component, limit, skip, maxPageNumber, currentPageNumber }) => {
+    const pageParams = {
+      path: `${basePath}/${currentPageNumber}`,
+      component: component,
+      context: {
+        limit: limit,
+        skip: skip,
+        maxPageNumber: maxPageNumber,
+        currentPageNumber: currentPageNumber,
+        nextPath: currentPageNumber > 1 ? `${basePath}/${currentPageNumber - 1}` : null,
+        previousPath: currentPageNumber < maxPageNumber ? `${basePath}/${currentPageNumber + 1}` : null,
+      },
+    }
+
+    createPage(pageParams)
+
+    if (currentPageNumber === 1) {
+      pageParams.path = `${basePath}/`
+      createPage(pageParams)
+    }
+  }
+
+  /* Create Paginated Blog posts */
+  const postsCount = result.data.allMarkdownRemark.edges.length
+  const postsPerPage = 10
+  const maxPageNumber = Math.ceil(postsCount / postsPerPage)
+  const createPageToPaginatedBlogPosts = ({ limit, skip, maxPageNumber, currentPageNumber }) => {
+    createPageToPaginated({
+      basePath: '',
+      component: path.resolve("./src/templates/blogPostsAll.js"),
+      limit: limit,
+      skip: skip,
+      maxPageNumber: maxPageNumber,
+      currentPageNumber: currentPageNumber,
+    })
+  }
+
+  Array.from({ length: maxPageNumber }).forEach((_, i) => {
+    createPageToPaginatedBlogPosts({
+      limit: postsPerPage,
+      skip: i * postsPerPage,
+      maxPageNumber: maxPageNumber,
+      currentPageNumber: i + 1,
+    })
+  })
+
   /* Create Blog post pages */
-  const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const blogPost = path.resolve(`./src/templates/blogPost.js`)
   const posts = result.data.allMarkdownRemark.edges
 
   posts.forEach((post, index) => {
@@ -52,8 +99,8 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  /* Create Blog posts by tag pages */
-  const blogTag = path.resolve(`./src/templates/blog-tag.js`)
+  /* Create Paginated Blog posts by tag */
+  const blogTag = path.resolve(`./src/templates/blogPostsTag.js`)
   const tags = result.data.allMarkdownRemark.edges
     .map(({ node }) => node.frontmatter.tags)
     .reduce((acc, cur) => {

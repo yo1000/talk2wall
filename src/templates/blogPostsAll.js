@@ -5,6 +5,7 @@ import { css } from "@emotion/core"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import StaticImage from "../components/staticImage"
 import { rhythm } from "../utils/typography"
 
 import colors from "../components/colors"
@@ -44,7 +45,7 @@ const styles = {
   `,
 }
 
-const BlogIndex = ({ data, location }) => {
+const BlogPostsAllTemplate = ({ data, pageContext, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
@@ -82,21 +83,41 @@ const BlogIndex = ({ data, location }) => {
           </article>
         )
       })}
+      <nav css={globalStyles.pageNav}>
+        <ul>
+          {pageContext.nextPath && (
+            <li className="next">
+              <StaticImage relativePath='arrow-left.png'/>
+              <Link to={pageContext.nextPath} rel="next" className="next">
+                Newer posts
+              </Link>
+            </li>
+          )}
+          {pageContext.previousPath && (
+            <li className="prev">
+              <Link to={pageContext.previousPath} rel="prev" className="prev">
+                Older posts
+              </Link>
+              <StaticImage relativePath='arrow-right.png'/>
+            </li>
+          )}
+        </ul>
+      </nav>
       <Bio />
     </Layout>
   )
 }
 
-export default BlogIndex
+export default BlogPostsAllTemplate
 
 export const pageQuery = graphql`
-  query {
+  query BlogPostsAllQuery($limit: Int, $skip: Int) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(limit: $limit, skip: $skip, sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           excerpt
