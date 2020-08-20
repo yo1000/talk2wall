@@ -45,12 +45,12 @@ const styles = {
   `,
 }
 
-const BlogPostsAllTemplate = ({ data, pageContext, location }) => {
+const BlogPostsAllTemplate = ({ data, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout title={siteTitle} pageContext={pageContext}>
       <SEO title="All posts" />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug

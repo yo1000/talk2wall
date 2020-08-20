@@ -5,6 +5,7 @@ import { css } from "@emotion/core"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import StaticImage from "../components/staticImage"
 import { rhythm } from "../utils/typography"
 
 import colors from "../components/colors"
@@ -44,12 +45,12 @@ const styles = {
   `,
 }
 
-const BlogPostsTagTemplate = ({ data, location }) => {
+const BlogPostsTagTemplate = ({ data, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout title={siteTitle} pageContext={pageContext}>
       <SEO title="All posts" />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
@@ -82,6 +83,26 @@ const BlogPostsTagTemplate = ({ data, location }) => {
           </article>
         )
       })}
+      <nav css={globalStyles.pageNav}>
+        <ul>
+          {pageContext.nextPath && (
+            <li className="next">
+              <StaticImage relativePath='arrow-left.png'/>
+              <Link to={pageContext.nextPath} rel="next" className="next">
+                Newer posts
+              </Link>
+            </li>
+          )}
+          {pageContext.previousPath && (
+            <li className="prev">
+              <Link to={pageContext.previousPath} rel="prev" className="prev">
+                Older posts
+              </Link>
+              <StaticImage relativePath='arrow-right.png'/>
+            </li>
+          )}
+        </ul>
+      </nav>
       <Bio />
     </Layout>
   )
@@ -90,13 +111,13 @@ const BlogPostsTagTemplate = ({ data, location }) => {
 export default BlogPostsTagTemplate
 
 export const pageQuery = graphql`
-  query BlogPostsTagQuery($tag: String!) {
+  query BlogPostsTagQuery($tag: String!, $limit: Int, $skip: Int) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(filter: { frontmatter: { tags: { eq: $tag } } }, sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(filter: { frontmatter: { tags: { eq: $tag } } }, limit: $limit, skip: $skip, sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           excerpt

@@ -1,9 +1,5 @@
 import React from "react"
 import { css } from "@emotion/core"
-import globalStyles from "./styles"
-
-const rootPath = `${__PATH_PREFIX__}/`
-const tagPathPrefix = `${__PATH_PREFIX__}/tag/`
 
 const base = {
   main: css`
@@ -27,11 +23,9 @@ const styles = {
   `,
 }
 
-const SiteBody = ({ location, children }) => (
-  <main css={
-    location.pathname === rootPath ? styles.postList :
-    location.pathname.indexOf(tagPathPrefix) === 0 ? styles.postList :
-    styles.postContent
+const SiteBody = ({ templateName, children }) => (
+  <main css={templateName === 'blogPostsAll' || templateName === 'blogPostsTag'
+    ? styles.postList : styles.postContent
   }>{children}</main>
 )
 

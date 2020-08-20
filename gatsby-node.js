@@ -32,7 +32,7 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
-  const createPageToPaginated = ({ basePath, component, limit, skip, maxPageNumber, currentPageNumber }) => {
+  const createPageToPaginated = ({ basePath, component, limit, skip, maxPageNumber, currentPageNumber, context }) => {
     const pageParams = {
       path: `${basePath}/${currentPageNumber}`,
       component: component,
@@ -43,6 +43,7 @@ exports.createPages = async ({ graphql, actions }) => {
         currentPageNumber: currentPageNumber,
         nextPath: currentPageNumber > 1 ? `${basePath}/${currentPageNumber - 1}` : null,
         previousPath: currentPageNumber < maxPageNumber ? `${basePath}/${currentPageNumber + 1}` : null,
+        ...context,
       },
     }
 
@@ -54,35 +55,42 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   }
 
-  /* Create Paginated Blog posts */
-  const postsCount = result.data.allMarkdownRemark.edges.length
   const postsPerPage = 10
-  const maxPageNumber = Math.ceil(postsCount / postsPerPage)
-  const createPageToPaginatedBlogPosts = ({ limit, skip, maxPageNumber, currentPageNumber }) => {
+
+  /* Create Paginated Blog posts */
+  const createPageToPaginatedBlogPostsAll = ({ limit, skip, maxPageNumber, currentPageNumber }) => {
+    const templateName = "blogPostsAll"
+
     createPageToPaginated({
       basePath: '',
-      component: path.resolve("./src/templates/blogPostsAll.js"),
+      component: path.resolve(`./src/templates/${templateName}.js`),
       limit: limit,
       skip: skip,
       maxPageNumber: maxPageNumber,
       currentPageNumber: currentPageNumber,
+      context: {
+        templateName: templateName,
+      },
     })
   }
 
-  Array.from({ length: maxPageNumber }).forEach((_, i) => {
-    createPageToPaginatedBlogPosts({
+  const postsAllCount = result.data.allMarkdownRemark.edges.length
+  const postsAllMaxPageNumber = Math.ceil(postsAllCount / postsPerPage)
+
+  Array.from({ length: postsAllMaxPageNumber }).forEach((_, i) => {
+    createPageToPaginatedBlogPostsAll({
       limit: postsPerPage,
       skip: i * postsPerPage,
-      maxPageNumber: maxPageNumber,
+      maxPageNumber: postsAllMaxPageNumber,
       currentPageNumber: i + 1,
     })
   })
 
   /* Create Blog post pages */
-  const blogPost = path.resolve(`./src/templates/blogPost.js`)
   const posts = result.data.allMarkdownRemark.edges
 
   posts.forEach((post, index) => {
+    const templateName = "blogPost"
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
     const next = index === 0 ? null : posts[index - 1].node
 
@@ -90,8 +98,9 @@ exports.createPages = async ({ graphql, actions }) => {
       path: post.node.frontmatter.path
         ? post.node.frontmatter.path
         : post.node.fields.slug,
-      component: blogPost,
+      component: path.resolve(`./src/templates/${templateName}.js`),
       context: {
+        templateName: templateName,
         slug: post.node.fields.slug,
         previous,
         next,
@@ -100,7 +109,6 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   /* Create Paginated Blog posts by tag */
-  const blogTag = path.resolve(`./src/templates/blogPostsTag.js`)
   const tags = result.data.allMarkdownRemark.edges
     .map(({ node }) => node.frontmatter.tags)
     .reduce((acc, cur) => {
@@ -116,12 +124,37 @@ exports.createPages = async ({ graphql, actions }) => {
     })
 
   tags.forEach((tag, _) => {
-    createPage({
-      path: `/tag/${tag}`,
-      component: blogTag,
-      context: {
-        tag: tag,
-      },
+    const createPageToPaginatedBlogPostsTag = ({ limit, skip, maxPageNumber, currentPageNumber, context }) => {
+      const templateName = "blogPostsTag"
+
+      createPageToPaginated({
+        basePath: `/tag/${tag}`,
+        component: path.resolve(`./src/templates/${templateName}.js`),
+        limit: limit,
+        skip: skip,
+        maxPageNumber: maxPageNumber,
+        currentPageNumber: currentPageNumber,
+        context: {
+          templateName: templateName,
+          ...context
+        },
+      })
+    }
+
+    const postsTagCount = result.data.allMarkdownRemark.edges
+      .filter(({ node }) => node.frontmatter.tags && node.frontmatter.tags.includes(tag)).length
+    const postsTagMaxPageNumber = Math.ceil(postsTagCount / postsPerPage)
+  
+    Array.from({ length: postsTagMaxPageNumber }).forEach((_, i) => {
+      createPageToPaginatedBlogPostsTag({
+        limit: postsPerPage,
+        skip: i * postsPerPage,
+        maxPageNumber: postsTagMaxPageNumber,
+        currentPageNumber: i + 1,
+        context: {
+          tag: tag,
+        },
+      })
     })
   })
 }

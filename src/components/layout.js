@@ -43,16 +43,16 @@ const styles = {
   `,
 }
 
-const Layout = ({ location, title, children }) => (
+const Layout = ({ title, pageContext, children }) => { console.log(pageContext); return(
   <div css={styles.layout}>
-    <SiteHeader location={location} title={title}/>
-    <SiteBody location={location}>{children}</SiteBody>
+    <SiteHeader title={title} templateName={pageContext.templateName} pageContext={pageContext}/>
+    <SiteBody templateName={pageContext.templateName}>{children}</SiteBody>
     <footer>
       © {new Date().getFullYear()}, Built with
       {` `}
       <a href="https://www.gatsbyjs.org">Gatsby</a>
     </footer>
   </div>
-)
+)}
 
 export default Layout

@@ -9,9 +9,6 @@ import Search from "./search"
 import colors from "./colors"
 import globalStyles from "./styles"
 
-const rootPath = `${__PATH_PREFIX__}/`
-const tagPathPrefix = `${__PATH_PREFIX__}/tag/`
-
 const styles = {
   navigation: css`
     display: flex;
@@ -207,20 +204,19 @@ const TagImage = ({ tag }) => (
   </div>
 )
 
-const Cover = ({ location }) => (
+const Cover = ({ templateName, pageContext }) => (
   <>
-    {location.pathname === rootPath && <RootImage/>}
-    {location.pathname.indexOf(tagPathPrefix) === 0
-      && <TagImage tag={location.pathname.substring(tagPathPrefix.length)}/>}
+    {templateName === 'blogPostsAll' && <RootImage/>}
+    {templateName === 'blogPostsTag' && <TagImage tag={pageContext.tag}/>}
   </>
 )
 
-const SiteHeader = ({ location, title }) => (
+const SiteHeader = ({ title, templateName, pageContext }) => (
   <header>
     <Navigation title={title}/>
     <div>
       <div css={styles.headerSpacer}></div>
-      <Cover location={location}/>
+      <Cover templateName={templateName} pageContext={pageContext}/>
     </div>
   </header>
 )
