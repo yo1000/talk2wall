@@ -43,6 +43,10 @@ const Bio = () => {
       margin-bottom: 0;
       padding: 0 4px;
 
+      * {
+        word-break: break-word;
+      }
+
       .avatar {
         width: 38px;
         height: 68px;

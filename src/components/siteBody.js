@@ -7,7 +7,7 @@ const base = {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding: 42px;
+    padding: 42px 42px 0;
   `,
 }
 const styles = {

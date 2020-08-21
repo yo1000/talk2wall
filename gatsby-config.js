@@ -91,7 +91,7 @@ module.exports = {
       resolve: `gatsby-plugin-web-font-loader`,
       options: {
         google: {
-          families: [`M PLUS 1p`, `Kanit`]
+          families: [`M PLUS 1p`, `Kanit`, `Niconne`]
         }
       }
     },

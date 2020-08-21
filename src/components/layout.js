@@ -3,6 +3,7 @@ import { css } from "@emotion/core"
 
 import SiteHeader from "./siteHeader"
 import SiteBody from "./siteBody"
+import SiteFooter from "./siteFooter"
 import colors from "./colors"
 
 const styles = {
@@ -31,7 +32,9 @@ const styles = {
       text-shadow: ${colors.white.textShadow} 2px 2px;
     }
 
-    p, ul, blockquote {
+    p, ul,
+    blockquote,
+    footer {
       a,
       a:active,
       a:visited {
@@ -47,11 +50,7 @@ const Layout = ({ title, pageContext, children }) => { console.log(pageContext);
   <div css={styles.layout}>
     <SiteHeader title={title} templateName={pageContext.templateName} pageContext={pageContext}/>
     <SiteBody templateName={pageContext.templateName}>{children}</SiteBody>
-    <footer>
-      © {new Date().getFullYear()}, Built with
-      {` `}
-      <a href="https://www.gatsbyjs.org">Gatsby</a>
-    </footer>
+    <SiteFooter/>
   </div>
 )}
 
