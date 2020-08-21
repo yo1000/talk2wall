@@ -2,14 +2,12 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import { css } from "@emotion/core"
 
+import theme from "../styles/theme"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import StaticImage from "../components/staticImage"
 import { rhythm } from "../utils/typography"
-
-import colors from "../components/colors"
-import globalStyles from "../components/styles"
 
 const styles = {
   title: {
@@ -18,15 +16,15 @@ const styles = {
   },
   titleLink: {
     boxShadow: `none`,
-    color: `${colors.white.color}`,
-    textShadow: `${colors.white.textShadow} 2px 2px`,
+    color: `${theme.colors.white.color}`,
+    textShadow: `${theme.colors.white.textShadow} 2px 2px`,
   },
   excerpt: {
     marginBottom: 0,
   },
 
   article: css`
-    ${globalStyles.cardSemiTransparency}
+    ${theme.styles.cardSemiTransparency}
 
     padding: 1.75rem 1.5rem;
     margin-bottom: 1rem;
@@ -83,7 +81,7 @@ const BlogPostsAllTemplate = ({ data, pageContext }) => {
           </article>
         )
       })}
-      <nav css={globalStyles.pageNav}>
+      <nav css={theme.styles.pageNav}>
         <ul>
           {pageContext.nextPath && (
             <li className="next">

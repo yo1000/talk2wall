@@ -21,11 +21,16 @@ const styles = {
 
     margin-top: 0;
   `,
+  error: css`
+  `,
 }
 
 const SiteBody = ({ templateName, children }) => (
-  <main css={templateName === 'blogPostsAll' || templateName === 'blogPostsTag'
-    ? styles.postList : styles.postContent
+  <main css={
+    templateName === 'blogPostsAll' ? styles.postList :
+    templateName === 'blogPostsTag' ? styles.postList :
+    templateName === 'blogPost' ? styles.postContent :
+    styles.error
   }>{children}</main>
 )
 

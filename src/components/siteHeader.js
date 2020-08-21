@@ -2,12 +2,10 @@ import React from "react"
 import { Link } from "gatsby"
 import { css } from "@emotion/core"
 
+import theme from "../styles/theme"
 import StaticImage from "./staticImage"
 import Notice from "./notice"
 import Search from "./search"
-
-import colors from "./colors"
-import globalStyles from "./styles"
 
 const styles = {
   navigation: css`
@@ -17,7 +15,7 @@ const styles = {
     width: 100%;
     height: 48px;
 
-    background-color: ${colors.black.color};
+    background-color: ${theme.colors.black.color};
     box-shadow: 0px 1px rgba(0, 0, 0, .2);
     z-index: 1000;
 
@@ -35,7 +33,7 @@ const styles = {
     }
   `,
   navigationItem: css`
-    ${globalStyles.cardOpacity}
+    ${theme.styles.cardOpacity}
 
     display: inline-block;
     height: 42px;
@@ -85,8 +83,8 @@ const styles = {
       rgba(68, 68, 68, 1),
       hsla(0, 0%, 45.5%, 1)
     ) 50%;
-    color: ${colors.white.color};
-    text-shadow: ${colors.white.textShadow} 1px 1px;
+    color: ${theme.colors.white.color};
+    text-shadow: ${theme.colors.white.textShadow} 1px 1px;
 
     border-color: #747474 #313131 #313131 #747474;
     border-radius: 2px;
@@ -122,7 +120,7 @@ const styles = {
     width: 100%;
     height: 140px;
     bottom: 0;
-    background: linear-gradient(180deg, transparent, ${colors.black.color});
+    background: linear-gradient(180deg, transparent, ${theme.colors.black.color});
   `,
   coverImageLogo: css`
     position: relative;
@@ -142,8 +140,23 @@ const styles = {
     text-align: center;
     margin: -27% auto 27%;
 
-    color: rgba(255,255,255,0.86);
-    text-shadow: #443 1px 1px;
+    color: ${theme.colors.white.color};
+    text-shadow: ${theme.colors.white.textShadow} 1px 1px;
+  `,
+  coverError: css`
+    position: relative;
+    width: 100%;
+    height: 64px;
+    bottom: 64px;
+    text-align: center;
+    margin: -27% auto 27%;
+
+    color: ${theme.colors.white.color};
+    text-shadow: ${theme.colors.white.textShadow} 1px 1px;
+
+    font-family: 'Niconne' !important;
+    font-size: 64px;
+    font-weight: 800;
   `,
   headerSpacer: css`
     display: flex;
@@ -204,10 +217,23 @@ const TagImage = ({ tag }) => (
   </div>
 )
 
+const ErrorImage = ({ code }) => (
+  <div css={styles.coverImageContainer}>
+    <div>
+      <StaticImage relativePath='header/cover-error.png'/>
+      <div css={styles.coverImageOverray}></div>
+    </div>
+    <h2 css={styles.coverError}>
+      {code}
+    </h2>
+  </div>
+)
+
 const Cover = ({ templateName, pageContext }) => (
   <>
     {templateName === 'blogPostsAll' && <RootImage/>}
     {templateName === 'blogPostsTag' && <TagImage tag={pageContext.tag}/>}
+    {templateName === '404' && <ErrorImage code='404'/>}
   </>
 )
 

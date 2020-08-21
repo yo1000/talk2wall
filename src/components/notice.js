@@ -1,7 +1,7 @@
 import React from "react"
 import { css } from "@emotion/core"
 
-import colors from "./colors"
+import theme from "../styles/theme"
 
 const styles = {
   notice: css`
@@ -13,17 +13,17 @@ const styles = {
     font-family: 'Kanit';
     font-size: 12px;
     font-weight: 800;
-    color: ${colors.darkBlue.color};
+    color: ${theme.colors.darkBlue.color};
     text-transform: uppercase;
     text-shadow:
-       1px  1px 1px ${colors.black.color},
-      -1px  1px 1px ${colors.black.color},
-       1px -1px 1px ${colors.black.color},
-      -1px -1px 1px ${colors.black.color},
-       1px  0px 1px ${colors.black.color},
-       0px  1px 1px ${colors.black.color},
-      -1px  0px 1px ${colors.black.color},
-       0px -1px 1px ${colors.black.color};
+       1px  1px 1px ${theme.colors.black.color},
+      -1px  1px 1px ${theme.colors.black.color},
+       1px -1px 1px ${theme.colors.black.color},
+      -1px -1px 1px ${theme.colors.black.color},
+       1px  0px 1px ${theme.colors.black.color},
+       0px  1px 1px ${theme.colors.black.color},
+      -1px  0px 1px ${theme.colors.black.color},
+       0px -1px 1px ${theme.colors.black.color};
   `,
 }
 

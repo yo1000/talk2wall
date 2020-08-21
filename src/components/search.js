@@ -2,8 +2,8 @@ import React, { Component } from "react"
 import { Link, graphql, StaticQuery } from 'gatsby'
 import { Index } from 'elasticlunr'
 import { css } from "@emotion/core"
-import colors from "./colors"
-import globalStyles from "./styles"
+
+import theme from "../styles/theme"
 
 const styles = {
   search: css`
@@ -28,8 +28,8 @@ const styles = {
       font-family: monospace;
       font-size: 12px;
       letter-spacing: 7px;
-      color: ${colors.white.color};
-      text-shadow: ${colors.white.textShadow} 1px 1px;
+      color: ${theme.colors.white.color};
+      text-shadow: ${theme.colors.white.textShadow} 1px 1px;
 
       background: transparent;
       border: 0;
@@ -48,8 +48,8 @@ const styles = {
       background-image: linear-gradient(
         to right,
         transparent,
-        ${colors.white.color} 1px,
-        ${colors.white.color} 9px,
+        ${theme.colors.white.color} 1px,
+        ${theme.colors.white.color} 9px,
         transparent 10px,
         transparent 4px,
         transparent 14px
@@ -63,8 +63,8 @@ const styles = {
         background-image: linear-gradient(
           to right,
           transparent,
-          ${colors.white.textShadow} 1px,
-          ${colors.white.textShadow} 9px,
+          ${theme.colors.white.textShadow} 1px,
+          ${theme.colors.white.textShadow} 9px,
           transparent 10px,
           transparent 4px,
           transparent 14px
@@ -73,7 +73,7 @@ const styles = {
     }
   `,
   searchResults: css`
-    ${globalStyles.cardOpacity}
+    ${theme.styles.cardOpacity}
 
     position: absolute;
     top: 32px;
@@ -92,7 +92,7 @@ const styles = {
       white-space: nowrap;
       text-overflow: ellipsis;
       box-shadow: none;
-      color: ${colors.blue.color};
+      color: ${theme.colors.blue.color};
     }
 
     a:hover {

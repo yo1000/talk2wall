@@ -2,17 +2,16 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import { css } from "@emotion/core"
 
+import theme from "../styles/theme"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Notice from "../components/notice"
 import StaticImage from "../components/staticImage"
-import colors from "../components/colors"
-import globalStyles from "../components/styles"
 
 const styles = {
   postHeader: css`
-    ${globalStyles.cardOpacity}
+    ${theme.styles.cardOpacity}
 
     margin: 0;
     padding: 0 1.25rem 1rem;
@@ -42,7 +41,7 @@ const styles = {
     }
   `,
   postBody: css`
-    ${globalStyles.cardOpacity}
+    ${theme.styles.cardOpacity}
 
     margin-bottom: 1rem;
     padding: 1.75rem 1.5rem;
@@ -59,11 +58,11 @@ const styles = {
         height: 0px;
         margin: 1.25rem -28px;
 
-        background-color: ${colors.black.color};
+        background-color: ${theme.colors.black.color};
         border-width: 4px;
         border-radius: 3px;
         border-style: ridge groove groove ridge;
-        border-color: #313131 ${colors.black.color} #747474 ${colors.black.color};
+        border-color: #313131 ${theme.colors.black.color} #747474 ${theme.colors.black.color};
       }
     }
 
@@ -76,13 +75,13 @@ const styles = {
       padding-left: 1rem;
 
       font-style: inherit;
-      color: ${colors.darkBlue.color};
-      text-shadow: ${colors.darkBlue.textShadow} 1px 1px;
-      border-left-color: ${colors.darkBlue.color};
+      color: ${theme.colors.darkBlue.color};
+      text-shadow: ${theme.colors.darkBlue.textShadow} 1px 1px;
+      border-left-color: ${theme.colors.darkBlue.color};
     }
 
     td, th {
-      border-bottom: 1px solid ${colors.white.color};
+      border-bottom: 1px solid ${theme.colors.white.color};
     }
 
     code,
@@ -153,7 +152,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
         <section css={styles.postBody}
           dangerouslySetInnerHTML={{ __html: post.html }}/>
       </article>
-      <nav css={globalStyles.pageNav}>
+      <nav css={theme.styles.pageNav}>
         <ul>
           {next && (
             <li className="next">
