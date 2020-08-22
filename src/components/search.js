@@ -105,6 +105,7 @@ class SearchInput extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      id: props.id,
       query: ``,
       results: [],
       isActive: false,
@@ -114,6 +115,7 @@ class SearchInput extends Component {
   render = () => (
     <>
       <input type="text" placeholder="Squall"
+        id={this.state.id}
         value={this.state.query}
         onChange={this.doSearch}
       />
@@ -148,7 +150,7 @@ class SearchInput extends Component {
   }
 }
 
-const Search = () => (<StaticQuery
+const Search = ({ id }) => (<StaticQuery
   query = { graphql`
     query SearchIndexQuery {
       siteSearchIndex {
@@ -158,7 +160,7 @@ const Search = () => (<StaticQuery
   ` }
   render={ data => (
     <div css={styles.search}>
-      <SearchInput placeholder="Squall"
+      <SearchInput placeholder="Squall" id={id}
         searchIndex={data.siteSearchIndex.index}/>
       <div className="underline shadow"></div>
       <div className="underline"></div>

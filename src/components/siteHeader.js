@@ -206,9 +206,9 @@ const Title = ({ children }) => (
   </h1>
 )
 
-const NavigationItem = ({ className, notice, children }) => (
+const NavigationItem = ({ className, htmlFor, notice, children }) => (
   <div css={styles.navigationItem} className={className}>
-    <Notice>{notice}</Notice>
+    <Notice htmlFor={htmlFor}>{notice}</Notice>
     {children}
   </div>
 )
@@ -240,8 +240,8 @@ const Navigation = ({ title, social, pickupTags }) => (
         ))}
       </div>
     </NavigationItem>
-    <NavigationItem className="search-container" notice="name">
-      <Search/>
+    <NavigationItem htmlFor="search" className="search-container" notice="name">
+      <Search id="search"/>
     </NavigationItem>
     <Title>{title}</Title>
   </nav>

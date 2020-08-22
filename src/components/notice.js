@@ -27,8 +27,8 @@ const styles = {
   `,
 }
 
-const Notice = ({ children }) => (
-  <div css={styles.notice} className="notice">{children}</div>
+const Notice = ({ htmlFor, children }) => (
+  <label css={styles.notice} className="notice" htmlFor={htmlFor}>{children}</label>
 )
 
 export default Notice
