@@ -41,8 +41,15 @@ const styles = {
     font-size: 14px;
     margin-top: 6px;
 
+    a {
+      color: ${theme.colors.white.color};
+      text-shadow: ${theme.colors.white.textShadow};
+      box-shadow: none;
+    }
+
     &.menu-container {
       width: calc(100% - 320px);
+      padding-right: 6px;
     }
 
     &.search-container {
@@ -67,6 +74,33 @@ const styles = {
         }
       }
     }
+  `,
+  menu: css`
+    position: relative;
+    margin: -34px 4px;
+    overflow: hidden;
+    white-space: nowrap;
+
+    @media screen and (max-width: 479px) {
+      top: 3px;
+    }
+
+    span {
+      display: inline-block;
+      position: relative;
+      top: -12px;
+      margin-left: 8px;
+
+      @media screen and (max-width: 519px) {
+        display: none;
+      }
+    }
+  `,
+  menuIcon: css`
+    display: inline-block;
+    width: 18px;
+    margin: 8px 9px;
+    filter: drop-shadow(1px 1px 1px ${theme.colors.white.textShadow});
   `,
   title: css`
     display: inline-block;
@@ -179,11 +213,32 @@ const NavigationItem = ({ className, notice, children }) => (
   </div>
 )
 
-const Navigation = ({ title }) => (
+const Navigation = ({ title, social, pickupTags }) => (
   <nav css={styles.navigation}>
     <div className="overray"></div>
     <NavigationItem className="menu-container" notice="notice">
-      <div></div>
+      <div css={styles.menu}>
+        <Link to={`/`}>
+          <StaticImage relativePath='header/icon-home.png' css={styles.menuIcon}/>
+        </Link>
+        <a href={`https://github.com/${social.github}`}
+          target="_blank" rel="noopener noreferrer">
+          <StaticImage relativePath='header/icon-github.png' css={styles.menuIcon}/>
+        </a>
+        <a href={`https://twitter.com/${social.twitter}`}
+          target="_blank" rel="noopener noreferrer">
+          <StaticImage relativePath='header/icon-twitter.png' css={styles.menuIcon}/>
+        </a>
+        <Link to={`/rss.xml`}>
+          <StaticImage relativePath='header/icon-rss.png' css={styles.menuIcon}/>
+        </Link>
+        {/* TODO: <span>About</span> */}
+        {pickupTags.map((tag) => (
+          <span>
+            <Link to={`/tag/${tag}`}>{tag}</Link>
+          </span>
+        ))}
+      </div>
     </NavigationItem>
     <NavigationItem className="search-container" notice="name">
       <Search/>
@@ -237,9 +292,9 @@ const Cover = ({ templateName, pageContext }) => (
   </>
 )
 
-const SiteHeader = ({ title, templateName, pageContext }) => (
+const SiteHeader = ({ title, social, pickupTags, templateName, pageContext }) => (
   <header>
-    <Navigation title={title}/>
+    <Navigation title={title} social={social} pickupTags={pickupTags}/>
     <div>
       <div css={styles.headerSpacer}></div>
       <Cover templateName={templateName} pageContext={pageContext}/>

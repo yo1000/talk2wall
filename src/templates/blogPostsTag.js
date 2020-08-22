@@ -45,10 +45,12 @@ const styles = {
 
 const BlogPostsTagTemplate = ({ data, pageContext }) => {
   const siteTitle = data.site.siteMetadata.title
+  const social = data.site.siteMetadata.social
+  const pickupTags = data.site.siteMetadata.pickupTags
   const posts = data.allMarkdownRemark.edges
 
   return (
-    <Layout title={siteTitle} pageContext={pageContext}>
+    <Layout title={siteTitle} social={social} pickupTags={pickupTags} pageContext={pageContext}>
       <SEO title="All posts" />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
@@ -113,6 +115,11 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        social {
+          twitter
+          github
+        }
+        pickupTags
       }
     }
     allMarkdownRemark(filter: { frontmatter: { tags: { eq: $tag } } }, limit: $limit, skip: $skip, sort: { fields: [frontmatter___date], order: DESC }) {

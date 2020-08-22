@@ -11,6 +11,10 @@ module.exports = {
       twitter: `yoichi_kikuchi`,
       github: `yo1000`,
     },
+    pickupTags: [
+      `Spring`,
+      `Kotlin`,
+    ],
   },
   plugins: [
     {
