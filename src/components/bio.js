@@ -30,6 +30,7 @@ const Bio = () => {
           }
           social {
             twitter
+            github
           }
         }
       }
@@ -69,11 +70,13 @@ const Bio = () => {
       <p>
         Written by <strong>{author.name}</strong> {author.summary}
         {` `}
-        <a href={`https://github.com/${social.github}`}>
+        <a href={`https://github.com/${social.github}`}
+          target="_blank" rel="noopener noreferrer">
           GitHub
         </a>
         {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
+        <a href={`https://twitter.com/${social.twitter}`}
+          target="_blank" rel="noopener noreferrer">
           Twitter
         </a>
       </p>
