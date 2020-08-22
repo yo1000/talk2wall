@@ -51,6 +51,14 @@ const styles = {
           }
         }
 
+        @media screen and (max-width: 479px) {
+          .left,
+          .right,
+          .bottom {
+            display: none;
+          }
+        }
+
         h2 {
           display: inline-block;
           position: relative;
