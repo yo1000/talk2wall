@@ -74,11 +74,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `壁にでも話してろ`,
+        short_name: `talk2wall`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
+        theme_color: `#1f1f1f`,
         display: `minimal-ui`,
         icon: `content/assets/gatsby-icon.png`,
       },
