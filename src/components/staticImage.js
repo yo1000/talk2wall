@@ -12,8 +12,8 @@ const StaticImage = ({relativePath, className, css}) => (
               relativePath
               name
               childImageSharp {
-                sizes(maxWidth: 800) {
-                  ...GatsbyImageSharpSizes
+                fluid(maxWidth: 1000, quality: 90) {
+                  ...GatsbyImageSharpFluid_withWebp_tracedSVG
                 }
               }
             }
@@ -29,8 +29,7 @@ const StaticImage = ({relativePath, className, css}) => (
 
       if (!image) return
       
-      const imageSizes = image.node.childImageSharp.sizes
-      return <Image sizes={imageSizes} className={className} css={css}/>
+      return <Image fluid={image.node.childImageSharp.fluid} className={className} css={css}/>
     }}
   />
 )
