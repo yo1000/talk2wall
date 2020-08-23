@@ -118,6 +118,7 @@ class SearchInput extends Component {
         id={this.state.id}
         value={this.state.query}
         onChange={this.doSearch}
+        autoComplete="off"
       />
 
       {this.state.results && this.state.results.length > 0 ?
