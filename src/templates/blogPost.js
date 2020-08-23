@@ -91,6 +91,11 @@ const styles = {
       font-family: monospace;
     }
 
+    code,
+    code * {
+      word-break: break-all;
+    }
+
     .gatsby-highlight {
       pre[class*="language-"] {
         position: relative;
