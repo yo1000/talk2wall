@@ -83,7 +83,7 @@ const styles = {
       flex-wrap: wrap;
       justify-content: space-between;
       list-style: none;
-      margin: 2em 0;
+      margin: 24px 0;
       padding: 0;
 
       li {

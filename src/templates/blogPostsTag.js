@@ -27,7 +27,7 @@ const styles = {
     ${theme.styles.cardSemiTransparency}
 
     padding: 1.75rem 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 24px;
   `,
   header: css`
     ul {
