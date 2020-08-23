@@ -15,11 +15,28 @@ const styles = {
     ${base.main}
 
     margin-top: -160px;
+    padding-top: 42px;
+
+    @media screen and (max-width: 479px) {
+      padding: 42px 0;
+
+      article {
+        margin: 0;
+      }
+    }
   `,
   postContent: css`
     ${base.main}
 
     margin-top: 0;
+
+    @media screen and (max-width: 479px) {
+      padding: 0;
+
+      article section {
+        margin: 0;
+      }
+    }
   `,
   error: css`
   `,

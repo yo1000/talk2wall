@@ -129,6 +129,10 @@ const styles = {
           }
         }
       }
+
+      @media screen and (max-width: 479px) {
+        margin: 0;
+      }
     }
   `,
 }
