@@ -176,6 +176,10 @@ const styles = {
 
     color: ${theme.colors.white.color};
     text-shadow: ${theme.colors.white.textShadow} 1px 1px;
+
+    @media screen and (max-width: 479px) {
+      bottom: 48px;
+    }
   `,
   coverError: css`
     position: relative;
