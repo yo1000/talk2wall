@@ -88,7 +88,7 @@ const styles = {
     code *,
     .gatsby-highlight,
     .gatsby-highlight * {
-      font-family: monospace;
+      font-family: 'Ubuntu Mono', monospace;
     }
 
     code,
