@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import { css } from "@emotion/core"
 
+import { templates } from "../utils/templates"
 import theme from "../styles/theme"
 import StaticImage from "./staticImage"
 import Notice from "./notice"
@@ -217,7 +218,7 @@ const NavigationItem = ({ className, htmlFor, notice, children }) => (
   </div>
 )
 
-const Navigation = ({ title, social, pickupTags }) => (
+const Navigation = ({ title, social, tags }) => (
   <nav css={styles.navigation}>
     <div className="overray"></div>
     <NavigationItem className="menu-container" notice="notice">
@@ -237,9 +238,9 @@ const Navigation = ({ title, social, pickupTags }) => (
           <StaticImage relativePath='header/icon-rss.png' css={styles.menuIcon}/>
         </Link>
         {/* TODO: <span>About</span> */}
-        {pickupTags.map((tag) => (
+        {tags.map((tag) => (
           <span>
-            <Link to={`/tag/${tag}`}>{tag}</Link>
+            <Link to={`/tag/${tag.name}`}>{tag.name}{`(${tag.count})`}</Link>
           </span>
         ))}
       </div>
@@ -290,18 +291,25 @@ const ErrorImage = ({ code }) => (
 
 const Cover = ({ templateName, pageContext }) => (
   <>
-    {templateName === 'blogPostsAll' && <RootImage/>}
-    {templateName === 'blogPostsTag' && <TagImage tag={pageContext.tag}/>}
-    {templateName === '404' && <ErrorImage code='404'/>}
+    {templateName === templates.blogPostsAll.name && <RootImage/>}
+    {templateName === templates.blogPostsTag.name && <TagImage tag={pageContext.tag}/>}
+    {templateName === templates._404.name && <ErrorImage code='404'/>}
   </>
 )
 
-const SiteHeader = ({ title, social, pickupTags, templateName, pageContext }) => (
-  <header>
-    <Navigation title={title} social={social} pickupTags={pickupTags}/>
+const SiteHeader = ({ pageContext }) => (
+<header>
+    <Navigation
+      title={pageContext.siteMetadata.title}
+      social={pageContext.siteMetadata.social}
+      tags={pageContext.menuTags}
+    />
     <div>
       <div css={styles.headerSpacer}></div>
-      <Cover templateName={templateName} pageContext={pageContext}/>
+      <Cover
+        templateName={pageContext.templateName}
+        pageContext={pageContext}
+      />
     </div>
   </header>
 )

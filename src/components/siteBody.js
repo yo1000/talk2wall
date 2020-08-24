@@ -1,6 +1,8 @@
 import React from "react"
 import { css } from "@emotion/core"
 
+import { templates } from "../utils/templates"
+
 const base = {
   main: css`
     position: relative;
@@ -42,11 +44,11 @@ const styles = {
   `,
 }
 
-const SiteBody = ({ templateName, children }) => (
+const SiteBody = ({ pageContext, children }) => (
   <main css={
-    templateName === 'blogPostsAll' ? styles.postList :
-    templateName === 'blogPostsTag' ? styles.postList :
-    templateName === 'blogPost' ? styles.postContent :
+    pageContext.templateName === templates.blogPostsAll.name ? styles.postList :
+    pageContext.templateName === templates.blogPostsTag.name ? styles.postList :
+    pageContext.templateName === templates.blogPost.name ? styles.postContent :
     styles.error
   }>{children}</main>
 )

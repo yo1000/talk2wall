@@ -128,15 +128,12 @@ const styles = {
   `,
 }
 
-const BlogPostTemplate = ({ data, pageContext }) => {
+const BlogPostTemplate = ({ pageContext, data }) => {
   const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata.title
-  const social = data.site.siteMetadata.social
-  const pickupTags = data.site.siteMetadata.pickupTags
   const { previous, next } = pageContext
 
   return (
-    <Layout title={siteTitle} social={social} pickupTags={pickupTags} pageContext={pageContext}>
+    <Layout pageContext={pageContext}>
       <SEO
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
@@ -192,16 +189,6 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-        social {
-          twitter
-          github
-        }
-        pickupTags
-      }
-    }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       excerpt(pruneLength: 160)

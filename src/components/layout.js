@@ -46,10 +46,10 @@ const styles = {
   `,
 }
 
-const Layout = ({ title, social, pickupTags, pageContext, children }) => (
+const Layout = ({ pageContext, children }) => (
   <div css={styles.layout}>
-    <SiteHeader title={title} social={social} pickupTags={pickupTags} templateName={pageContext.templateName} pageContext={pageContext}/>
-    <SiteBody templateName={pageContext.templateName}>{children}</SiteBody>
+    <SiteHeader pageContext={pageContext}/>
+    <SiteBody pageContext={pageContext}>{children}</SiteBody>
     <SiteFooter/>
   </div>
 )

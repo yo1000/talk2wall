@@ -1,9 +1,26 @@
-const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
-const { createReadStream } = require("fs")
+const { templates } = require(`./src/utils/templates`)
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
+
+  const siteMetadata = (await graphql(
+    `
+      {
+        site {
+          siteMetadata {
+            title
+            social {
+              twitter
+              github
+            }
+            filteredTags
+          }
+        }
+      }
+    `
+  )).data.site.siteMetadata
+
   const result = await graphql(
     `
       {
@@ -32,11 +49,39 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
+  const tags = result.data.allMarkdownRemark.edges
+    .map(({ node }) => node.frontmatter.tags)
+    .reduce((acc, cur) => ([...acc, ...(
+      cur
+        ? Array.isArray(cur)
+          ? cur
+          : [cur]
+        : []
+    )]), [])
+    .reduce((acc, cur) => {
+      const found = acc.find(({ name }) => (name === cur))
+      if (found) {
+        found.count++
+        return acc
+      } else {
+        return [
+          ...acc,
+          { name: cur, count: 1, },
+        ]
+      }
+    }, [])
+
+  const menuTags = tags
+    .filter(({ name }) => (!siteMetadata.filteredTags.includes(name)))
+    .sort((a, b) => b.count - a.count)
+
   const createPageToPaginated = ({ basePath, component, limit, skip, maxPageNumber, currentPageNumber, context }) => {
     const pageParams = {
       path: `${basePath}/${currentPageNumber}`,
       component: component,
       context: {
+        siteMetadata: siteMetadata,
+        menuTags: menuTags,
         limit: limit,
         skip: skip,
         maxPageNumber: maxPageNumber,
@@ -59,17 +104,15 @@ exports.createPages = async ({ graphql, actions }) => {
 
   /* Create Paginated Blog posts */
   const createPageToPaginatedBlogPostsAll = ({ limit, skip, maxPageNumber, currentPageNumber }) => {
-    const templateName = "blogPostsAll"
-
     createPageToPaginated({
       basePath: '',
-      component: path.resolve(`./src/templates/${templateName}.js`),
+      component: templates.blogPostsAll.component,
       limit: limit,
       skip: skip,
       maxPageNumber: maxPageNumber,
       currentPageNumber: currentPageNumber,
       context: {
-        templateName: templateName,
+        templateName: templates.blogPostsAll.name,
       },
     })
   }
@@ -90,7 +133,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const posts = result.data.allMarkdownRemark.edges
 
   posts.forEach((post, index) => {
-    const templateName = "blogPost"
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
     const next = index === 0 ? null : posts[index - 1].node
 
@@ -98,9 +140,11 @@ exports.createPages = async ({ graphql, actions }) => {
       path: post.node.frontmatter.path
         ? post.node.frontmatter.path
         : post.node.fields.slug,
-      component: path.resolve(`./src/templates/${templateName}.js`),
+      component: templates.blogPost.component,
       context: {
-        templateName: templateName,
+        siteMetadata: siteMetadata,
+        templateName: templates.blogPost.name,
+        menuTags: menuTags,
         slug: post.node.fields.slug,
         previous,
         next,
@@ -108,34 +152,18 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  /* Create Paginated Blog posts by tag */
-  const tags = result.data.allMarkdownRemark.edges
-    .map(({ node }) => node.frontmatter.tags)
-    .reduce((acc, cur) => {
-      if (!acc && !cur) return new Array()
-      if (!acc) return cur
-      if (!cur) return acc
-
-      cur.forEach((v) => {
-        if (acc.indexOf(v) === -1) acc.push(v)
-      })
-      
-      return acc
-    })
-
-  tags.forEach((tag, _) => {
+  tags.forEach(({ name }, _) => {
+    const tag = name
     const createPageToPaginatedBlogPostsTag = ({ limit, skip, maxPageNumber, currentPageNumber, context }) => {
-      const templateName = "blogPostsTag"
-
       createPageToPaginated({
         basePath: `/tag/${tag}`,
-        component: path.resolve(`./src/templates/${templateName}.js`),
+        component: templates.blogPostsTag.component,
         limit: limit,
         skip: skip,
         maxPageNumber: maxPageNumber,
         currentPageNumber: currentPageNumber,
         context: {
-          templateName: templateName,
+          templateName: templates.blogPostsTag.name,
           ...context
         },
       })
@@ -156,6 +184,16 @@ exports.createPages = async ({ graphql, actions }) => {
         },
       })
     })
+  })
+
+  createPage({
+    path: '/404',
+    component: templates._404.component,
+    context: {
+      siteMetadata: siteMetadata,
+      templateName: templates._404.name,
+      menuTags: menuTags,
+    },
   })
 }
 
