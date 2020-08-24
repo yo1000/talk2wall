@@ -265,14 +265,22 @@ const RootImage = () => (
   </div>
 )
 
+const calcCoverTagIndex = (tag) => {
+  let index = 0
+  for (let i = 0; i < tag.length; i++) {
+    index ^= tag.charCodeAt(i)
+  }
+  return index % 14
+}
+
 const TagImage = ({ tag }) => (
   <div css={styles.coverImageContainer}>
     <div>
-      <StaticImage relativePath='header/cover-tag.png'/>
+      <StaticImage relativePath={`header/cover-tag/${calcCoverTagIndex(tag)}.png`}/>
       <div css={styles.coverImageOverray}></div>
     </div>
     <h2 css={styles.coverTag}>
-      {`（…………${tag}）`}
+      {tag}
     </h2>
   </div>
 )
@@ -298,7 +306,7 @@ const Cover = ({ templateName, pageContext }) => (
 )
 
 const SiteHeader = ({ pageContext }) => (
-<header>
+  <header>
     <Navigation
       title={pageContext.siteMetadata.title}
       social={pageContext.siteMetadata.social}

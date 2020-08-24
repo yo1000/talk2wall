@@ -48,7 +48,7 @@ const BlogPostsTagTemplate = ({ pageContext, data }) => {
 
   return (
     <Layout pageContext={pageContext}>
-      <SEO title="All posts" />
+      <SEO title={`${pageContext.tag} tagged posts`}/>
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
         return (
