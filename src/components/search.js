@@ -42,6 +42,7 @@ const styles = {
     .underline {
       position: absolute;
       top: 18px;
+      left: 0;
       width: 126px;
       height: 2px;
 
