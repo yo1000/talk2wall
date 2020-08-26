@@ -157,7 +157,7 @@ const styles = {
     bottom: 0;
     background: linear-gradient(180deg, transparent, ${theme.colors.black.color});
   `,
-  coverImageLogo: css`
+  coverLogoTitle: css`
     position: relative;
     width: 240px;
     bottom: 50px;
@@ -167,7 +167,7 @@ const styles = {
       position: relative !important;
     }
   `,
-  coverTag: css`
+  coverTagTitle: css`
     position: relative;
     width: 100%;
     height: 64px;
@@ -182,7 +182,17 @@ const styles = {
       bottom: 48px;
     }
   `,
-  coverError: css`
+  coverAboutTitle: css`
+    position: relative;
+    width: 280px;
+    bottom: 50px;
+    margin: -32.5% auto 32.5%;
+
+    @media screen and (max-width: 832px) {
+      position: relative !important;
+    }
+  `,
+  coverErrorTitle: css`
     position: relative;
     width: 100%;
     height: 64px;
@@ -260,7 +270,7 @@ const RootImage = () => (
     </div>
     <StaticImage
       relativePath="header/logo.png"
-      css={styles.coverImageLogo}
+      css={styles.coverLogoTitle}
     />
   </div>
 )
@@ -279,9 +289,22 @@ const TagImage = ({ tag }) => (
       <StaticImage relativePath={`header/cover-tag/${calcCoverTagIndex(tag)}.png`}/>
       <div css={styles.coverImageOverray}></div>
     </div>
-    <h2 css={styles.coverTag}>
+    <h2 css={styles.coverTagTitle}>
       {tag}
     </h2>
+  </div>
+)
+
+const AboutImage = () => (
+  <div css={styles.coverImageContainer}>
+    <div>
+      <StaticImage relativePath='header/cover-about.png'/>
+      <div css={styles.coverImageOverray}></div>
+    </div>
+    <StaticImage
+      relativePath="header/cover-about-message.png"
+      css={styles.coverAboutTitle}
+    />
   </div>
 )
 
@@ -291,7 +314,7 @@ const ErrorImage = ({ code }) => (
       <StaticImage relativePath='header/cover-error.png'/>
       <div css={styles.coverImageOverray}></div>
     </div>
-    <h2 css={styles.coverError}>
+    <h2 css={styles.coverErrorTitle}>
       {code}
     </h2>
   </div>
@@ -301,6 +324,7 @@ const Cover = ({ templateName, pageContext }) => (
   <>
     {templateName === templates.blogPostsAll.name && <RootImage/>}
     {templateName === templates.blogPostsTag.name && <TagImage tag={pageContext.tag}/>}
+    {templateName === templates.about.name && <AboutImage pageContext={pageContext}/>}
     {templateName === templates._404.name && <ErrorImage code='404'/>}
   </>
 )

@@ -109,7 +109,17 @@ export default BlogPostsTagTemplate
 
 export const pageQuery = graphql`
   query BlogPostsTagQuery($tag: String!, $limit: Int, $skip: Int) {
-    allMarkdownRemark(filter: { frontmatter: { tags: { eq: $tag } } }, limit: $limit, skip: $skip, sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      filter: {
+        fields: { slug: { regex: "^/posts/" } },
+        frontmatter: { tags: { eq: $tag } }
+      },
+      limit: $limit,
+      skip: $skip,
+      sort: {
+        fields: [frontmatter___date], order: DESC
+      }
+    ) {
       edges {
         node {
           excerpt

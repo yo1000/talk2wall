@@ -37,6 +37,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 title
                 path
                 tags
+                description
               }
             }
           }
@@ -49,7 +50,11 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
-  const tags = result.data.allMarkdownRemark.edges
+  const posts = result.data.allMarkdownRemark.edges.filter(({ node }) => (
+    node.fields.slug.startsWith('/posts/')
+  ))
+
+  const tags = posts
     .map(({ node }) => node.frontmatter.tags)
     .reduce((acc, cur) => ([...acc, ...(
       cur
@@ -117,7 +122,7 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   }
 
-  const postsAllCount = result.data.allMarkdownRemark.edges.length
+  const postsAllCount = posts.length
   const postsAllMaxPageNumber = Math.ceil(postsAllCount / postsPerPage)
 
   Array.from({ length: postsAllMaxPageNumber }).forEach((_, i) => {
@@ -129,29 +134,7 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  /* Create Blog post pages */
-  const posts = result.data.allMarkdownRemark.edges
-
-  posts.forEach((post, index) => {
-    const previous = index === posts.length - 1 ? null : posts[index + 1].node
-    const next = index === 0 ? null : posts[index - 1].node
-
-    createPage({
-      path: post.node.frontmatter.path
-        ? post.node.frontmatter.path
-        : post.node.fields.slug,
-      component: templates.blogPost.component,
-      context: {
-        siteMetadata: siteMetadata,
-        templateName: templates.blogPost.name,
-        menuTags: menuTags,
-        slug: post.node.fields.slug,
-        previous,
-        next,
-      },
-    })
-  })
-
+  /* Create Paginated Blog posts by tag */
   tags.forEach(({ name }, _) => {
     const tag = name
     const createPageToPaginatedBlogPostsTag = ({ limit, skip, maxPageNumber, currentPageNumber, context }) => {
@@ -169,7 +152,7 @@ exports.createPages = async ({ graphql, actions }) => {
       })
     }
 
-    const postsTagCount = result.data.allMarkdownRemark.edges
+    const postsTagCount = posts
       .filter(({ node }) => node.frontmatter.tags && node.frontmatter.tags.includes(tag)).length
     const postsTagMaxPageNumber = Math.ceil(postsTagCount / postsPerPage)
   
@@ -185,6 +168,46 @@ exports.createPages = async ({ graphql, actions }) => {
       })
     })
   })
+
+  /* Create Blog post pages */
+  posts.forEach((post, index) => {
+    const previous = index === posts.length - 1 ? null : posts[index + 1].node
+    const next = index === 0 ? null : posts[index - 1].node
+    
+    createPage({
+      path: post.node.frontmatter.path
+        ? post.node.frontmatter.path
+        : post.node.fields.slug,
+      component: templates.blogPost.component,
+      context: {
+        siteMetadata: siteMetadata,
+        templateName: templates.blogPost.name,
+        menuTags: menuTags,
+        slug: post.node.fields.slug,
+        previous,
+        next,
+      },
+    })
+  })
+
+  const about = result.data.allMarkdownRemark.edges.find(({ node }) => (
+    node.fields.slug == '/features/about/'
+  ))
+
+  if (about) {
+    createPage({
+      path: about.node.frontmatter.path
+        ? about.node.frontmatter.path
+        : about.node.fields.slug,
+      component: templates.about.component,
+      context: {
+        siteMetadata: siteMetadata,
+        templateName: templates.about.name,
+        menuTags: menuTags,
+        slug: about.node.fields.slug,
+      },
+    })
+  }
 
   createPage({
     path: '/404',
