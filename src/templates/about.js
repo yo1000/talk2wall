@@ -61,7 +61,7 @@ const styles = new class Styles {
 
       hr {
         height: 0px;
-        margin: 0px -28px;
+        margin: 0px -28px 1.5rem;
       }
 
       h1,
