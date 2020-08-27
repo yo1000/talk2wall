@@ -190,25 +190,30 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  /* Create About page */
-  const about = result.data.allMarkdownRemark.edges.find(({ node }) => (
-    node.fields.slug == '/features/about/'
+  /* Create Feature pages */
+  const features = result.data.allMarkdownRemark.edges.filter(({ node }) => (
+    node.fields.slug.startsWith('/features/')
   ))
 
-  if (about) {
+  features.forEach((feature, _) => {
+    const template =
+      (feature.node.fields.slug  === '/features/about/')
+        ? templates.about
+      : templates.blogPost
+    
     createPage({
-      path: about.node.frontmatter.path
-        ? about.node.frontmatter.path
-        : about.node.fields.slug,
-      component: templates.about.component,
+      path: feature.node.frontmatter.path
+        ? feature.node.frontmatter.path
+        : feature.node.fields.slug,
+      component: template.component,
       context: {
         siteMetadata: siteMetadata,
-        templateName: templates.about.name,
+        templateName: template.name,
         menuTags: menuTags,
-        slug: about.node.fields.slug,
+        slug: feature.node.fields.slug,
       },
     })
-  }
+  })
 
   /* Create Tags page */
   createPage({
