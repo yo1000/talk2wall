@@ -13,7 +13,7 @@ const styles = new class Styles {
   constructor() {
     this.postMeta = css`
       margin-bottom: 1.75rem;
-    `,
+    `
     this.postHeader = css`
       ${theme.styles.cardOpacity}
     
