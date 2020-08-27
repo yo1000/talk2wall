@@ -20,7 +20,7 @@ const styles = {
     padding-top: 42px;
 
     @media screen and (max-width: 479px) {
-      padding: 48px 0;
+      padding: 48px 0 0;
 
       article {
         margin: 0;
@@ -47,7 +47,7 @@ const styles = {
     padding-top: 42px;
 
     @media screen and (max-width: 479px) {
-      padding: 48px 0;
+      padding: 48px 0 0;
 
       article {
         margin: 0;
@@ -61,7 +61,7 @@ const styles = {
     padding-top: 42px;
 
     @media screen and (max-width: 479px) {
-      padding: 48px 0;
+      padding: 48px 0 0;
 
       article {
         margin: 0;
