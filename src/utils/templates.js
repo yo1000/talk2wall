@@ -3,6 +3,7 @@ const path = require(`path`)
 const names = [
   `_404`,
   `about`,
+  `tags`,
   `blogPost`,
   `blogPostsAll`,
   `blogPostsTag`,

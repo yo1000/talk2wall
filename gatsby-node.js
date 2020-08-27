@@ -190,6 +190,7 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
+  /* Create About page */
   const about = result.data.allMarkdownRemark.edges.find(({ node }) => (
     node.fields.slug == '/features/about/'
   ))
@@ -209,6 +210,18 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   }
 
+  /* Create Tags page */
+  createPage({
+    path: '/tags',
+    component: templates.tags.component,
+    context: {
+      siteMetadata: siteMetadata,
+      templateName: templates.tags.name,
+      menuTags: menuTags,
+    },
+  })
+
+  /* Create 404 page */
   createPage({
     path: '/404',
     component: templates._404.component,

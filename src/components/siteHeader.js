@@ -103,6 +103,16 @@ const styles = {
     margin: 8px 9px;
     filter: drop-shadow(1px 1px 1px ${theme.colors.white.textShadow});
   `,
+  menuIconExternal: css`
+    display: inline-block;
+    width: 18px;
+    margin: 8px 9px;
+    filter: drop-shadow(1px 1px 1px ${theme.colors.white.textShadow});
+
+    @media screen and (max-width: 519px) {
+      display: none;
+    }
+`,
   title: css`
     display: inline-block;
     float: right;
@@ -182,6 +192,16 @@ const styles = {
       bottom: 48px;
     }
   `,
+  coverTagsTitle: css`
+    position: relative;
+    width: 100px;
+    bottom: 50px;
+    margin: -30.5% auto 30.5%;
+
+    @media screen and (max-width: 832px) {
+      position: relative !important;
+    }
+  `,
   coverAboutTitle: css`
     position: relative;
     width: 280px;
@@ -236,18 +256,23 @@ const Navigation = ({ title, social, tags }) => (
         <Link to={`/`}>
           <StaticImage relativePath='header/icon-home.png' css={styles.menuIcon}/>
         </Link>
-        <a href={`https://github.com/${social.github}`}
-          target="_blank" rel="noopener noreferrer">
-          <StaticImage relativePath='header/icon-github.png' css={styles.menuIcon}/>
-        </a>
-        <a href={`https://twitter.com/${social.twitter}`}
-          target="_blank" rel="noopener noreferrer">
-          <StaticImage relativePath='header/icon-twitter.png' css={styles.menuIcon}/>
-        </a>
+        <Link to={`/about`}>
+          <StaticImage relativePath='header/icon-about.png' css={styles.menuIcon}/>
+        </Link>
+        <Link to={`/tags`}>
+          <StaticImage relativePath='header/icon-tags.png' css={styles.menuIcon}/>
+        </Link>
         <Link to={`/rss.xml`}>
           <StaticImage relativePath='header/icon-rss.png' css={styles.menuIcon}/>
         </Link>
-        {/* TODO: <span>About</span> */}
+        <a href={`https://github.com/${social.github}`}
+          target="_blank" rel="noopener noreferrer">
+          <StaticImage relativePath='header/icon-github.png' css={styles.menuIconExternal}/>
+        </a>
+        <a href={`https://twitter.com/${social.twitter}`}
+          target="_blank" rel="noopener noreferrer">
+          <StaticImage relativePath='header/icon-twitter.png' css={styles.menuIconExternal}/>
+        </a>
         {tags.map((tag) => (
           <span>
             <Link to={`/tag/${tag.name}`}>{tag.name}{`(${tag.count})`}</Link>
@@ -295,6 +320,19 @@ const TagImage = ({ tag }) => (
   </div>
 )
 
+const TagsImage = () => (
+  <div css={styles.coverImageContainer}>
+    <div>
+      <StaticImage relativePath='header/cover-tagtag.png'/>
+      <div css={styles.coverImageOverray}></div>
+    </div>
+    <StaticImage
+      relativePath="header/cover-tagtag-title.png"
+      css={styles.coverTagsTitle}
+    />
+  </div>
+)
+
 const AboutImage = () => (
   <div css={styles.coverImageContainer}>
     <div>
@@ -324,6 +362,7 @@ const Cover = ({ templateName, pageContext }) => (
   <>
     {templateName === templates.blogPostsAll.name && <RootImage/>}
     {templateName === templates.blogPostsTag.name && <TagImage tag={pageContext.tag}/>}
+    {templateName === templates.tags.name && <TagsImage pageContext={pageContext}/>}
     {templateName === templates.about.name && <AboutImage pageContext={pageContext}/>}
     {templateName === templates._404.name && <ErrorImage code='404'/>}
   </>

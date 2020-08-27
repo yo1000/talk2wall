@@ -40,6 +40,20 @@ const styles = {
       }
     }
   `,
+  tags: css`
+    ${base.main}
+
+    margin-top: -158px;
+    padding-top: 42px;
+
+    @media screen and (max-width: 479px) {
+      padding: 48px 0;
+
+      article {
+        margin: 0;
+      }
+    }
+  `,
   about: css`
     ${base.main}
 
@@ -63,6 +77,7 @@ const SiteBody = ({ pageContext, children }) => (
     pageContext.templateName === templates.blogPostsAll.name ? styles.postList :
     pageContext.templateName === templates.blogPostsTag.name ? styles.postList :
     pageContext.templateName === templates.blogPost.name ? styles.postContent :
+    pageContext.templateName === templates.tags.name ? styles.tags :
     pageContext.templateName === templates.about.name ? styles.about :
     styles.error
   }>{children}</main>
