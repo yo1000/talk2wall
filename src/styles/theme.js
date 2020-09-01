@@ -63,7 +63,6 @@ const theme = new class Theme {
           hr {
             background-color: ${themeThis.colors.black.color};
             border-width: 4px;
-            border-radius: 3px;
             border-style: ridge groove groove ridge;
             border-color: #313131 ${themeThis.colors.black.color} #747474 ${themeThis.colors.black.color};
           }

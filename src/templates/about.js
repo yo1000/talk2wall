@@ -61,7 +61,8 @@ const styles = new class Styles {
 
       hr {
         height: 0px;
-        margin: 0px -28px 1.5rem;
+        margin: 0px -26px 1.5rem -27px;
+        border-radius: 0;
       }
 
       h1,
@@ -82,6 +83,20 @@ const styles = new class Styles {
         }
       }
     
+      b, strong {
+        color: ${theme.colors.red.color};
+        text-shadow: ${theme.colors.red.textShadow} 1px 1px;
+        font-weight: 400;
+        font-style: normal;
+      }
+  
+      em {
+        color: ${theme.colors.yellow.color};
+        text-shadow: ${theme.colors.yellow.textShadow} 1px 1px;
+        font-weight: 400;
+        font-style: normal;
+      }
+  
       ol, ul {
         margin-left: 1.75rem;
       }
@@ -101,6 +116,12 @@ const styles = new class Styles {
         border-bottom: 1px solid ${theme.colors.white.color};
       }
     
+      .gatsby-resp-image-image {
+        width: unset !important;
+        height: unset !important;
+        box-shadow: none !important;
+      }
+    
       code,
       code *,
       .gatsby-highlight,
@@ -115,8 +136,8 @@ const styles = new class Styles {
     
       *:not(pre) > code,
       *:not(pre) > code[class*=language-] {
-        color: ${theme.colors.yellow.color};
-        text-shadow: ${theme.colors.yellow.textShadow} 1px 1px;
+        color: ${theme.colors.green.color};
+        text-shadow: ${theme.colors.green.textShadow} 1px 1px;
         background: transparent;
         padding: .1em;
         border-radius: .3em;

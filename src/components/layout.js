@@ -23,7 +23,7 @@ const styles = {
       word-break: break-all;
     }
 
-    h1, h2, h3, h4, h5, h6, b, strong {
+    h1, h2, h3, h4, h5, h6 {
       color: ${theme.colors.white.color};
       text-shadow: ${theme.colors.white.textShadow} 1px 1px;
     }
