@@ -103,7 +103,7 @@ const styles = {
     margin: 8px 9px;
     filter: drop-shadow(1px 1px 1px ${theme.colors.white.textShadow});
   `,
-  menuIconExternal: css`
+  menuIconOptional: css`
     display: inline-block;
     width: 18px;
     margin: 8px 9px;
@@ -262,16 +262,19 @@ const Navigation = ({ title, social, tags }) => (
         <Link to={`/tags`}>
           <StaticImage relativePath='header/icon-tags.png' css={styles.menuIcon}/>
         </Link>
+        <Link to={`/bookmarks`}>
+          <StaticImage relativePath='header/icon-bookmarks.png' css={styles.menuIcon}/>
+        </Link>
         <Link to={`/rss.xml`}>
-          <StaticImage relativePath='header/icon-rss.png' css={styles.menuIcon}/>
+          <StaticImage relativePath='header/icon-rss.png' css={styles.menuIconOptional}/>
         </Link>
         <a href={`https://github.com/${social.github}`}
           target="_blank" rel="noopener noreferrer">
-          <StaticImage relativePath='header/icon-github.png' css={styles.menuIconExternal}/>
+          <StaticImage relativePath='header/icon-github.png' css={styles.menuIconOptional}/>
         </a>
         <a href={`https://twitter.com/${social.twitter}`}
           target="_blank" rel="noopener noreferrer">
-          <StaticImage relativePath='header/icon-twitter.png' css={styles.menuIconExternal}/>
+          <StaticImage relativePath='header/icon-twitter.png' css={styles.menuIconOptional}/>
         </a>
         {tags.map((tag) => (
           <span>
