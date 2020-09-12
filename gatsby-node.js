@@ -2,7 +2,7 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const { templates } = require(`./src/utils/templates`)
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
 
   const siteMetadata = (await graphql(
     `
@@ -38,6 +38,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 path
                 tags
                 description
+                redirect_from
               }
             }
           }
@@ -235,6 +236,24 @@ exports.createPages = async ({ graphql, actions }) => {
       templateName: templates._404.name,
       menuTags: menuTags,
     },
+  })
+
+  /* Create redirect mapping */
+  posts.filter(({ node }) => (
+    node.frontmatter.redirect_from && node.frontmatter.redirect_from.length
+  )).forEach(({ node }) => {
+    const to = node.frontmatter.path
+      ? node.frontmatter.path
+      : node.fields.slug
+    
+    node.frontmatter.redirect_from.forEach((from) => {
+      createRedirect({
+        fromPath: from,
+        toPath: to,
+        isPermanent: true,
+        redirectInBrowser: true,
+      })
+    })
   })
 }
 
