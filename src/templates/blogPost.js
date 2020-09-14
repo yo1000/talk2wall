@@ -147,7 +147,8 @@ const styles = new class Styles {
         pre[class*="language-"] {
           position: relative;
           border-radius: 4px;
-    
+          margin-bottom: 1.75rem;
+              
           &.line-numbers {
             padding-left: 5em;
           }
