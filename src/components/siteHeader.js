@@ -37,6 +37,7 @@ const styles = {
     ${theme.styles.cardOpacity}
 
     display: inline-block;
+    position: relative;
     height: 42px;
     line-height: 34px;
     font-size: 14px;
@@ -77,9 +78,7 @@ const styles = {
     }
   `,
   menu: css`
-    position: relative;
-    margin: -34px 4px;
-    overflow: hidden;
+    position: absolute;
     white-space: nowrap;
 
     @media screen and (max-width: 479px) {
@@ -95,6 +94,15 @@ const styles = {
       @media screen and (max-width: 519px) {
         display: none;
       }
+    }
+  `,
+  menuItem: css`
+    position: fixed;
+    width: calc(100% - 340px);
+    overflow: hidden;
+
+    @media screen and (max-width: 479px) {
+      width: unset;
     }
   `,
   menuIcon: css`
@@ -253,34 +261,36 @@ const Navigation = ({ title, social, tags }) => (
     <div className="overray"></div>
     <NavigationItem className="menu-container" notice="notice">
       <div css={styles.menu}>
-        <Link to={`/`}>
-          <StaticImage relativePath='header/icon-home.png' css={styles.menuIcon}/>
-        </Link>
-        <Link to={`/about`}>
-          <StaticImage relativePath='header/icon-about.png' css={styles.menuIcon}/>
-        </Link>
-        <Link to={`/tags`}>
-          <StaticImage relativePath='header/icon-tags.png' css={styles.menuIcon}/>
-        </Link>
-        <Link to={`/bookmarks`}>
-          <StaticImage relativePath='header/icon-bookmarks.png' css={styles.menuIcon}/>
-        </Link>
-        <Link to={`/rss.xml`}>
-          <StaticImage relativePath='header/icon-rss.png' css={styles.menuIconOptional}/>
-        </Link>
-        <a href={`https://github.com/${social.github}`}
-          target="_blank" rel="noopener noreferrer">
-          <StaticImage relativePath='header/icon-github.png' css={styles.menuIconOptional}/>
-        </a>
-        <a href={`https://twitter.com/${social.twitter}`}
-          target="_blank" rel="noopener noreferrer">
-          <StaticImage relativePath='header/icon-twitter.png' css={styles.menuIconOptional}/>
-        </a>
-        {tags.map((tag) => (
-          <span>
-            <Link to={`/tag/${tag.name}`}>{tag.name}{`(${tag.count})`}</Link>
-          </span>
-        ))}
+        <div css={styles.menuItem}>
+          <Link to={`/`}>
+            <StaticImage relativePath='header/icon-home.png' css={styles.menuIcon}/>
+          </Link>
+          <Link to={`/about`}>
+            <StaticImage relativePath='header/icon-about.png' css={styles.menuIcon}/>
+          </Link>
+          <Link to={`/tags`}>
+            <StaticImage relativePath='header/icon-tags.png' css={styles.menuIcon}/>
+          </Link>
+          <Link to={`/bookmarks`}>
+            <StaticImage relativePath='header/icon-bookmarks.png' css={styles.menuIcon}/>
+          </Link>
+          <Link to={`/rss.xml`}>
+            <StaticImage relativePath='header/icon-rss.png' css={styles.menuIconOptional}/>
+          </Link>
+          <a href={`https://github.com/${social.github}`}
+            target="_blank" rel="noopener noreferrer">
+            <StaticImage relativePath='header/icon-github.png' css={styles.menuIconOptional}/>
+          </a>
+          <a href={`https://twitter.com/${social.twitter}`}
+            target="_blank" rel="noopener noreferrer">
+            <StaticImage relativePath='header/icon-twitter.png' css={styles.menuIconOptional}/>
+          </a>
+          {tags.map((tag) => (
+            <span>
+              <Link to={`/tag/${tag.name}`}>{tag.name}{`(${tag.count})`}</Link>
+            </span>
+          ))}
+        </div>
       </div>
     </NavigationItem>
     <NavigationItem htmlFor="search" className="search-container" notice="name">

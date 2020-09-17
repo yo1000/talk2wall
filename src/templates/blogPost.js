@@ -16,28 +16,30 @@ const styles = new class Styles {
     `
     this.postHeader = css`
       ${theme.styles.cardOpacity}
-    
+
+      position: relative;
       margin: 0;
-      padding: 0 1.25rem 1rem;
-    
+      padding: 1.25rem 1.25rem 1rem;
+
       .notice {
+        position: absolute;
         top: -10px;
-        left: -16px;
+        left: 4px;
       }
-    
+
       h1 {
         margin: 0;
       }
-    
+
       small {
         display: block;
         margin: .5rem 0 0;
       }
-    
+
       ul {
         margin: 0;
         list-style: none;
-    
+
         li {
           display: inline-block;
           margin-right: .5rem;

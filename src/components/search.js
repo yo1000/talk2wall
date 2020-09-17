@@ -8,8 +8,8 @@ import theme from "../styles/theme"
 const styles = {
   search: css`
     display: flex;
-    position: relative;
-    top: -28px;
+    position: absolute;
+    top: 6px;
     width: 126px;
     height: 23px;
     margin: 0 15px;
@@ -82,6 +82,13 @@ const styles = {
     width: 320px;
     padding: 4px;
     box-shadow: 0px 1px rgba(0,0,0,.2);
+
+    @media screen and (max-width: 479px) {
+      position: fixed;
+      width: 100%;
+      top: 48px;
+      left: 0;
+    }
 
     a,
     a:hover,

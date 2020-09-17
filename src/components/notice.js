@@ -6,9 +6,9 @@ import theme from "../styles/theme"
 const styles = {
   notice: css`
     display: flex;
-    position: relative;
+    position: absolute;
     top: -16px;
-    left: .25rem;
+    left: 4px;
 
     font-family: 'Kanit';
     font-size: 12px;
