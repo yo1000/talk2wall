@@ -66,7 +66,10 @@ const styles = new class Styles {
       h1,
       h2 {
         margin-top: 0;
+      }
 
+      h1:not(:first-child),
+      h2:not(:first-child) {
         ::before {
           content: '';
           display: block;
@@ -80,7 +83,7 @@ const styles = new class Styles {
           border-color: #313131 ${theme.colors.black.color} #747474 ${theme.colors.black.color};
         }
       }
-    
+
       b, strong {
         color: ${theme.colors.red.color};
         text-shadow: ${theme.colors.red.textShadow} 1px 1px;
