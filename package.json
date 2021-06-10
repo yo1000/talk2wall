@@ -8,7 +8,7 @@
     "url": "https://github.com/yo1000/talk2wall/issues"
   },
   "dependencies": {
-    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.3.0",
     "@fontsource/jetbrains-mono": "^4.4.5",
     "@fontsource/kanit": "^4.4.5",
