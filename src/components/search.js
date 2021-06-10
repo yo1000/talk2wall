@@ -25,7 +25,7 @@ const styles = {
       margin: 0;
       padding: 0;
 
-      font-family: 'Ubuntu Mono', monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 14px;
       letter-spacing: 7px;
       color: ${theme.colors.white.color};
