@@ -128,7 +128,7 @@ const styles = new class Styles {
       code *,
       .gatsby-highlight,
       .gatsby-highlight * {
-        font-family: 'Ubuntu Mono', monospace;
+        font-family: 'JetBrains Mono', monospace;
       }
     
       code,

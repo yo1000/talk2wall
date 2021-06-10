@@ -1,6 +1,11 @@
 import React from "react"
 import { css } from "@emotion/react"
 
+import "@fontsource/m-plus-1p"
+import "@fontsource/kanit"
+import "@fontsource/niconne"
+import "@fontsource/jetbrains-mono"
+
 import theme from "../styles/theme"
 import SiteHeader from "./siteHeader"
 import SiteBody from "./siteBody"
