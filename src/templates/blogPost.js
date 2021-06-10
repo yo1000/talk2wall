@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 
 import theme from "../styles/theme"
 import Bio from "../components/bio"

@@ -8,7 +8,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 
 import { rhythm } from "../utils/typography"
 

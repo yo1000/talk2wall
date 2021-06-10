@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Link, graphql, StaticQuery } from 'gatsby'
 import { Index } from 'elasticlunr'
-import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 
 import theme from "../styles/theme"
 
