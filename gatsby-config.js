@@ -1,177 +1,211 @@
 module.exports = {
-  siteMetadata: {
-    title: `壁にでも話してろ`,
-    author: {
-      name: `yo1000 | YO!CHI KIKUCHI`,
-      summary: `Loves Spring, Kotlin, Pelikan Fountain pen and FINAL FANTASY VIII!! 🍃🐦🖋️🗡️`,
-    },
-    description: `Then go talk to a wall.`,
-    siteUrl: `https://yo1000.com/`,
-    social: {
-      twitter: `yoichi_kikuchi`,
-      github: `yo1000`,
-    },
-    filteredTags: [
-      `Tech`,
-      `Beginner`,
-    ],
-  },
-  plugins: [
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/articles`,
-        name: `articles`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 590,
-            },
-          },
-          {
-            resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
-          },
-          {
-            resolve: `gatsby-remark-prismjs`,
-            options: {
-              classPrefix: 'language-',
-              inlineCodeMarker: null,
-              aliases: {},
-              showLineNumbers: false,
-              noInlineHighlight: false,
-            },
-          },
-          `gatsby-remark-copy-linked-files`,
-          `gatsby-remark-smartypants`,
-        ],
-      },
-    },
-    `gatsby-plugin-image`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: `UA-119554407-1`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-feed`,
-      options: {
-        query: `
-          {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-                site_url: siteUrl
-              }
-            }
-          }
-        `,
-        feeds: [
-          {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: `${site.siteMetadata.siteUrl}${edge.node.frontmatter.path
-                    ? edge.node.frontmatter.path
-                    : edge.node.fields.slug}`,
-                  guid: `${site.siteMetadata.siteUrl}${edge.node.frontmatter.path
-                    ? edge.node.frontmatter.path
-                    : edge.node.fields.slug}`,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
-                })
-              })
-            },
-            query: `
-              {
-                allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                ) {
-                  edges {
-                    node {
-                      excerpt
-                      html
-                      fields { slug }
-                      frontmatter {
-                        title
-                        date
-                        path
-                      }
-                    }
-                  }
-                }
-              }
-            `,
-            output: "/rss.xml",
-            title: "talk2wall rss feed",
-            match: "^/",
-          },
-        ],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `壁にでも話してろ`,
-        short_name: `talk2wall`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#1f1f1f`,
-        display: `minimal-ui`,
-        icon: `content/assets/talk2wall-icon.png`,
-      },
-    },
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
-    `gatsby-plugin-emotion`,
-    {
-      resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
-      options: {
-        // Fields to index
-        fields: [`title`, `tags`, `slug`],
-        // How to resolve each field`s value for a supported node type
-        resolvers: {
-          // For any node of type MarkdownRemark, list how to resolve the fields` values
-          MarkdownRemark: {
-            title: node => node.frontmatter.title,
-            tags: node => node.frontmatter.tags,
-            path: node => node.frontmatter.path
-              ? node.frontmatter.path
-              : node.fields.slug,
-            slug: node => node.rawMarkdownBody,
-          },
+    siteMetadata: {
+        title: `壁にでも話してろ`,
+        author: {
+            name: `yo1000 | YO!CHI KIKUCHI`,
+            summary: `Loves Spring, Kotlin, Pelikan Fountain pen and FINAL FANTASY VIII!! 🍃🐦🖋️🦁️`,
         },
-      },
+        description: `Then go talk to a wall.`,
+        siteUrl: `https://yo1000.com/`,
+        social: {
+            twitter: `yoichi_kikuchi`,
+            github: `yo1000`,
+        },
+        pagination: {
+            postsPerPage: 10,
+        },
+        filteredTags: [
+            `Tech`,
+            `Beginner`,
+        ],
     },
-    `gatsby-plugin-twitter`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
-  ],
-}
+    plugins: [
+        "gatsby-plugin-emotion",
+        "gatsby-plugin-image",
+        {
+            resolve: "gatsby-plugin-google-analytics",
+            options: {
+                trackingId: "UA-119554407-1",
+            },
+        },
+        "gatsby-plugin-react-helmet",
+        "gatsby-plugin-sitemap",
+        {
+            resolve: "gatsby-plugin-manifest",
+            options: {
+                icon: "src/images/talk2wall-icon.png",
+            },
+        },
+        {
+            resolve: `gatsby-transformer-remark`,
+            options: {
+                plugins: [
+                    {
+                        resolve: `gatsby-remark-images`,
+                        options: {
+                            maxWidth: 590,
+                        },
+                    },
+                    {
+                        resolve: `gatsby-remark-responsive-iframe`,
+                        options: {
+                            wrapperStyle: `margin-bottom: 1.0725rem`,
+                        },
+                    },
+                    {
+                        resolve: `gatsby-remark-prismjs`,
+                        options: {
+                            classPrefix: 'language-',
+                            inlineCodeMarker: null,
+                            aliases: {},
+                            showLineNumbers: false,
+                            noInlineHighlight: false,
+                        },
+                    },
+                    `gatsby-remark-copy-linked-files`,
+                ],
+            },
+        },
+        "gatsby-plugin-sharp",
+        "gatsby-transformer-sharp",
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "images",
+                path: "./src/images/",
+            },
+        },
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "pages",
+                path: "./src/pages/",
+            },
+        },
+        {
+            resolve: 'gatsby-plugin-local-search',
+            options: {
+                // A unique name for the search index. This should be descriptive of
+                // what the index contains. This is required.
+                name: 'pages',
+
+                // Set the search engine to create the index. This is required.
+                // The following engines are supported: flexsearch, lunr
+                engine: 'flexsearch',
+
+                // Provide options to the engine. This is optional and only recommended
+                // for advanced users.
+                //
+                // Note: Only the flexsearch engine supports options.
+                engineOptions: 'speed',
+
+                // GraphQL query used to fetch all data for the search index. This is
+                // required.
+                query: `
+                    {
+                        allMarkdownRemark {
+                            nodes {
+                                id
+                                frontmatter {
+                                    path
+                                    title
+                                    tags
+                                }
+                                rawMarkdownBody
+                            }
+                        }
+                    }
+                `,
+
+                // Field used as the reference value for each document.
+                // Default: 'id'.
+                ref: 'id',
+
+                // List of keys to index. The values of the keys are taken from the
+                // normalizer function below.
+                // Default: all fields
+                index: ['title', 'body', 'tags'],
+
+                // List of keys to store and make available in your UI. The values of
+                // the keys are taken from the normalizer function below.
+                // Default: all fields
+                store: ['id', 'path', 'title', 'tags'],
+
+                // Function used to map the result from the GraphQL query. This should
+                // return an array of items to index in the form of flat objects
+                // containing properties to index. The objects must contain the `ref`
+                // field above (default: 'id'). This is required.
+                normalizer: ({data}) =>
+                    data.allMarkdownRemark.nodes.map(node => ({
+                        id: node.id,
+                        path: node.frontmatter.path
+                            ? node.frontmatter.path
+                            : node.fields.slug,
+                        title: node.frontmatter.title,
+                        body: node.rawMarkdownBody,
+                        tags: node.frontmatter.tags,
+                    })),
+            },
+        },
+        {
+            resolve: `gatsby-plugin-feed`,
+            options: {
+                query: `
+                    {
+                        site {
+                            siteMetadata {
+                                title
+                                description
+                                siteUrl
+                                site_url: siteUrl
+                            }
+                        }
+                    }
+                `,
+                feeds: [
+                    {
+                        serialize: ({query: {site, allMarkdownRemark}}) => {
+                            return allMarkdownRemark.nodes.map(node => {
+                                return Object.assign({}, node.frontmatter, {
+                                    description: node.excerpt,
+                                    date: node.frontmatter.date,
+                                    url: `${site.siteMetadata.siteUrl}${
+                                        node.frontmatter.path 
+                                            ? node.frontmatter.path 
+                                            : node.fields.slug
+                                    }`,
+                                    guid: `${site.siteMetadata.siteUrl}${node.frontmatter.path
+                                        ? node.frontmatter.path
+                                        : node.fields.slug}`,
+                                    custom_elements: [{"content:encoded": node.html}],
+                                })
+                            })
+                        },
+                        query: `
+                            {
+                                allMarkdownRemark(
+                                    sort: { order: DESC, fields: [frontmatter___date] },
+                                ) {
+                                    nodes {
+                                        excerpt
+                                        html
+                                        fields { slug }
+                                        frontmatter {
+                                            title
+                                            date
+                                            path
+                                        }
+                                    }
+                                }
+                            }
+                        `,
+                        output: "/rss.xml",
+                        title: "talk2wall rss feed",
+                        match: "^/",
+                    },
+                ],
+            },
+        },
+        `gatsby-plugin-twitter`,
+    ],
+};

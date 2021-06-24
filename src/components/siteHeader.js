@@ -1,401 +1,295 @@
 import React from "react"
-import { Link } from "gatsby"
-import { css } from "@emotion/react"
+import {graphql, Link, useStaticQuery} from "gatsby"
 
-import { templates } from "../utils/templates"
+import "@fontsource/m-plus-1p"
+import "@fontsource/kanit"
+import "@fontsource/niconne"
+import "@fontsource/jetbrains-mono"
+
+import { css } from "@emotion/react"
 import theme from "../styles/theme"
-import StaticImage from "./staticImage"
-import Notice from "./notice"
-import Search from "./search"
+
+import Notice from "../components/notice"
+import SearchInput from "./searchInput"
+import {StaticImage} from "gatsby-plugin-image";
 
 const styles = {
-  navigation: css`
-    display: flex;
-    position: fixed;
-    left: 0;
-    width: 100%;
-    height: 48px;
-
-    background-color: ${theme.colors.black.color};
-    box-shadow: 0px 1px rgba(0, 0, 0, .2);
-    z-index: 1000;
-
-    .overray {
-      position: absolute;
-      top: 48px;
-      width: 100%;
-      height: .5rem;
-      background: linear-gradient(
-        180deg,
-        #000,
-        rgba(0, 0, 0, .25) 10%,
-        transparent
-      );
-    }
-  `,
-  navigationItem: css`
-    ${theme.styles.cardOpacity}
-
-    display: inline-block;
-    position: relative;
-    height: 42px;
-    line-height: 34px;
-    font-size: 14px;
-    margin-top: 6px;
-
-    a {
-      color: ${theme.colors.white.color};
-      text-shadow: ${theme.colors.white.textShadow};
-      box-shadow: none;
-    }
-
-    &.menu-container {
-      width: calc(100% - 320px);
-      padding-right: 6px;
-    }
-
-    &.search-container {
-      width: 160px;
-    }
-
-    @media screen and (max-width: 479px) {
-      &.menu-container,
-      &.search-container {
-        width: 50%;
+    navigation: css`
+        display: flex;
+        position: fixed;
+        left: 0;
+        width: 100%;
         height: 48px;
-        margin-top: 0;
 
-        .underline {
-          top: 21px;
+        background-color: ${theme.colors.black.color};
+        box-shadow: 0px 1px rgba(0, 0, 0, .2);
+        z-index: 1000;
+
+        font-family: 'M PLUS 1p';
+        word-break: break-all;
+        
+        a {
+            text-decoration: none;
         }
-        .underline.shadow {
-          top: 22px;
+        
+        .overlay {
+            position: absolute;
+            top: 48px;
+            width: 100%;
+            height: .5rem;
+            background: linear-gradient(180deg,
+            #000,
+            rgba(0, 0, 0, .25) 10%,
+            transparent);
         }
-        input {
-          top: 1px;
+    `,
+    navigationItem: css`
+        ${theme.styles.cardOpacity};
+
+        display: inline-block;
+        position: relative;
+        line-height: 34px;
+        font-size: 14px;
+        margin-top: 6px;
+
+        a {
+            color: ${theme.colors.white.color};
+            text-shadow: ${theme.colors.white.textShadow};
+            box-shadow: none;
         }
-      }
-    }
-  `,
-  menu: css`
-    position: absolute;
-    white-space: nowrap;
 
-    @media screen and (max-width: 479px) {
-      top: 3px;
-    }
+        &.menu-container {
+            width: calc(100% - 320px);
+            padding-right: 6px;
+        }
 
-    span {
-      display: inline-block;
-      position: relative;
-      top: -12px;
-      margin-left: 8px;
+        &.search-container {
+            width: 160px;
+        }
 
-      @media screen and (max-width: 519px) {
-        display: none;
-      }
-    }
-  `,
-  menuItem: css`
-    position: fixed;
-    width: calc(100% - 340px);
-    overflow: hidden;
+        @media screen and (max-width: 479px) {
+            &.menu-container,
+            &.search-container {
+                width: 50%;
+                margin-top: 0;
 
-    @media screen and (max-width: 479px) {
-      width: unset;
-    }
-  `,
-  menuIcon: css`
-    display: inline-block;
-    width: 18px;
-    margin: 8px 9px;
-    filter: drop-shadow(1px 1px 1px ${theme.colors.white.textShadow});
-  `,
-  menuIconOptional: css`
-    display: inline-block;
-    width: 18px;
-    margin: 8px 9px;
-    filter: drop-shadow(1px 1px 1px ${theme.colors.white.textShadow});
+                .underline {
+                    top: 21px;
+                }
+                .underline.shadow {
+                    top: 22px;
+                }
+                input {
+                    top: 1px;
+                }
+            }
+        }
+    `,
+    menu: css`
+        position: absolute;
+        white-space: nowrap;
 
-    @media screen and (max-width: 519px) {
-      display: none;
-    }
-`,
-  title: css`
-    display: inline-block;
-    float: right;
-    width: 160px;
-    height: 48px;
-    line-height: 40px;
-    font-size: 16px;
-    text-align: center;
-    margin: 0px;
-    
-    background: linear-gradient(
-      90deg,
-      rgba(68, 68, 68, 1),
-      hsla(0, 0%, 45.5%, 1)
-    ) 50%;
-    color: ${theme.colors.white.color};
-    text-shadow: ${theme.colors.white.textShadow} 1px 1px;
+        @media screen and (max-width: 479px) {
+            top: 3px;
+        }
 
-    border-color: #747474 #313131 #313131 #747474;
-    border-radius: 2px;
-    border-width: 4px;
-    border-style: groove ridge ridge groove;
+        span {
+            display: inline-block;
+            position: relative;
+            margin-left: 8px;
 
-    a {
-      box-shadow: none;
-      color: inherit;
-    }
+            @media screen and (max-width: 519px) {
+                display: none;
+            }
+        }
+    `,
+    menuItem: css`
+        position: fixed;
+        width: calc(100% - 340px);
+        overflow: hidden;
 
-    @media screen and (max-width: 479px) {
-      display: none;
-    }
-  `,
-  coverImageContainer: css`
-    max-width: 800px;
-    margin: 0 auto;
+        @media screen and (max-width: 479px) {
+            width: unset;
+        }
+    `,
+    menuIcon: css`
+        display: inline-block;
+        width: 18px;
+        margin: 8px 9px;
+        filter: drop-shadow(1px 1px 1px ${theme.colors.white.textShadow});
+    `,
+    menuIconOptional: css`
+        display: inline-block;
+        width: 18px;
+        margin: 8px 9px;
+        filter: drop-shadow(1px 1px 1px ${theme.colors.white.textShadow});
 
-    > div:first-of-type {
-      position: relative;
-      width: 100%;
-    }
+        @media screen and (max-width: 519px) {
+            display: none;
+        }
+    `,
+    title: css`
+        display: inline-block;
+        float: right;
+        width: 160px;
+        line-height: 40px;
+        font-size: 16px;
+        text-align: center;
+        margin: 0px;
 
-    @media screen and (max-width: 832px) {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
-  `,
-  coverImageOverray: css`
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 140px;
-    bottom: 0;
-    background: linear-gradient(180deg, transparent, ${theme.colors.black.color});
-  `,
-  coverLogoTitle: css`
-    position: relative;
-    width: 240px;
-    bottom: 50px;
-    margin: -30% auto 30%;
+        background: linear-gradient(
+                90deg,
+                rgba(68, 68, 68, 1),
+                hsla(0, 0%, 45.5%, 1)
+        ) 50%;
+        color: ${theme.colors.white.color};
+        text-shadow: ${theme.colors.white.textShadow} 1px 1px;
 
-    @media screen and (max-width: 832px) {
-      position: relative !important;
-    }
-  `,
-  coverTagTitle: css`
-    position: relative;
-    width: 100%;
-    height: 64px;
-    bottom: 64px;
-    text-align: center;
-    margin: -27% auto 27%;
+        border-color: #747474 #313131 #313131 #747474;
+        border-radius: 2px;
+        border-width: 4px;
+        border-style: groove ridge ridge groove;
 
-    color: ${theme.colors.white.color};
-    text-shadow: ${theme.colors.white.textShadow} 1px 1px;
+        a {
+            box-shadow: none;
+            color: inherit;
+        }
 
-    @media screen and (max-width: 479px) {
-      bottom: 48px;
-    }
-  `,
-  coverTagsTitle: css`
-    position: relative;
-    width: 100px;
-    bottom: 50px;
-    margin: -30.5% auto 30.5%;
-
-    @media screen and (max-width: 832px) {
-      position: relative !important;
-    }
-  `,
-  coverAboutTitle: css`
-    position: relative;
-    width: 280px;
-    bottom: 50px;
-    margin: -32.5% auto 32.5%;
-
-    @media screen and (max-width: 832px) {
-      position: relative !important;
-    }
-  `,
-  coverErrorTitle: css`
-    position: relative;
-    width: 100%;
-    height: 64px;
-    bottom: 64px;
-    text-align: center;
-    margin: -27% auto 27%;
-
-    color: ${theme.colors.white.color};
-    text-shadow: ${theme.colors.white.textShadow} 1px 1px;
-
-    font-family: 'Niconne' !important;
-    font-size: 64px;
-    font-weight: 800;
-  `,
-  headerSpacer: css`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 48px;
-  `,
+        @media screen and (max-width: 479px) {
+            display: none;
+        }
+    `,
+    headerSpacer: css`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 48px;
+    `,
 }
 
-const Title = ({ children }) => (
-  <h1 css={styles.title}>
-    <Link to={`/`}>{children}</Link>
-  </h1>
+const SiteHeader = ({ children }) => {
+    const data = useStaticQuery(graphql`query SiteHeaderQuery {
+        allMarkdownRemark(
+            filter: {fields: {slug: {regex: "^/posts/"}}}
+            sort: {fields: [frontmatter___date], order: DESC}
+            limit: 1000
+        ) {
+            nodes {
+                frontmatter {
+                    title
+                    path
+                    tags
+                }
+            }
+        }
+        site {
+            siteMetadata {
+                title
+                social {
+                    twitter
+                    github
+                }
+                filteredTags
+            }
+        }
+    }`)
+
+    const tags = data.allMarkdownRemark.nodes
+        .map(node => node.frontmatter.tags)
+        .reduce((acc, cur) => ([...acc, ...(
+            cur
+                ? Array.isArray(cur)
+                ? cur
+                : [cur]
+                : []
+        )]), [])
+        .reduce((acc, cur) => {
+            const found = acc.find(({ name }) => (name === cur))
+            if (found) {
+                found.count++
+                return acc
+            } else {
+                return [
+                    ...acc,
+                    { name: cur, count: 1, },
+                ]
+            }
+        }, [])
+
+    const menuTags = tags
+        .filter(({ name }) => (!data.site.siteMetadata.filteredTags.includes(name)))
+        .sort((a, b) => b.count - a.count)
+
+    return (
+        <header>
+            <Navigation
+                title={data.site.siteMetadata.title}
+                social={data.site.siteMetadata.social}
+                tags={menuTags}
+            />
+            <div>
+                <div css={styles.headerSpacer}></div>
+                {children}
+            </div>
+        </header>
+    )
+}
+
+const Navigation = ({ title, social, tags }) => (
+    <nav css={styles.navigation}>
+        <div className="overlay"></div>
+        <NavigationItem className="menu-container" notice="notice">
+            <div css={styles.menu}>
+                <div css={styles.menuItem}>
+                    <Link to={`/`}>
+                        <StaticImage src='../images/header/icon-home.png' css={styles.menuIcon}/>
+                    </Link>
+                    <Link to={`/about`}>
+                        <StaticImage src='../images/header/icon-about.png' css={styles.menuIcon}/>
+                    </Link>
+                    <Link to={`/tags`}>
+                        <StaticImage src='../images/header/icon-tags.png' css={styles.menuIcon}/>
+                    </Link>
+                    <Link to={`/bookmarks`}>
+                        <StaticImage src='../images/header/icon-bookmarks.png' css={styles.menuIcon}/>
+                    </Link>
+                    <Link to={`/rss.xml`}>
+                        <StaticImage src='../images/header/icon-rss.png' css={styles.menuIconOptional}/>
+                    </Link>
+                    <a href={`https://github.com/${social.github}`}
+                       target="_blank" rel="noopener noreferrer">
+                        <StaticImage src='../images/header/icon-github.png' css={styles.menuIconOptional}/>
+                    </a>
+                    <a href={`https://twitter.com/${social.twitter}`}
+                       target="_blank" rel="noopener noreferrer">
+                        <StaticImage src='../images/header/icon-twitter.png' css={styles.menuIconOptional}/>
+                    </a>
+                    {tags.map((tag) => (
+                        <span>
+              <Link to={`/tag/${tag.name}`}>{tag.name}{`(${tag.count})`}</Link>
+            </span>
+                    ))}
+                </div>
+            </div>
+        </NavigationItem>
+        <NavigationItem htmlFor="search" className="search-container" notice="name">
+            <SearchInput id="search"/>
+        </NavigationItem>
+        <Title>{title}</Title>
+    </nav>
 )
 
 const NavigationItem = ({ className, htmlFor, notice, children }) => (
-  <div css={styles.navigationItem} className={className}>
-    <Notice htmlFor={htmlFor}>{notice}</Notice>
-    {children}
-  </div>
-)
-
-const Navigation = ({ title, social, tags }) => (
-  <nav css={styles.navigation}>
-    <div className="overray"></div>
-    <NavigationItem className="menu-container" notice="notice">
-      <div css={styles.menu}>
-        <div css={styles.menuItem}>
-          <Link to={`/`}>
-            <StaticImage relativePath='header/icon-home.png' css={styles.menuIcon}/>
-          </Link>
-          <Link to={`/about`}>
-            <StaticImage relativePath='header/icon-about.png' css={styles.menuIcon}/>
-          </Link>
-          <Link to={`/tags`}>
-            <StaticImage relativePath='header/icon-tags.png' css={styles.menuIcon}/>
-          </Link>
-          <Link to={`/bookmarks`}>
-            <StaticImage relativePath='header/icon-bookmarks.png' css={styles.menuIcon}/>
-          </Link>
-          <Link to={`/rss.xml`}>
-            <StaticImage relativePath='header/icon-rss.png' css={styles.menuIconOptional}/>
-          </Link>
-          <a href={`https://github.com/${social.github}`}
-            target="_blank" rel="noopener noreferrer">
-            <StaticImage relativePath='header/icon-github.png' css={styles.menuIconOptional}/>
-          </a>
-          <a href={`https://twitter.com/${social.twitter}`}
-            target="_blank" rel="noopener noreferrer">
-            <StaticImage relativePath='header/icon-twitter.png' css={styles.menuIconOptional}/>
-          </a>
-          {tags.map((tag) => (
-            <span>
-              <Link to={`/tag/${tag.name}`}>{tag.name}{`(${tag.count})`}</Link>
-            </span>
-          ))}
-        </div>
-      </div>
-    </NavigationItem>
-    <NavigationItem htmlFor="search" className="search-container" notice="name">
-      <Search id="search"/>
-    </NavigationItem>
-    <Title>{title}</Title>
-  </nav>
-)
-
-const RootImage = () => (
-  <div css={styles.coverImageContainer}>
-    <div>
-      <StaticImage relativePath='header/cover-root.png'/>
-      <div css={styles.coverImageOverray}></div>
+    <div css={styles.navigationItem} className={className}>
+        <Notice htmlFor={htmlFor}>{notice}</Notice>
+        {children}
     </div>
-    <StaticImage
-      relativePath="header/logo.png"
-      css={styles.coverLogoTitle}
-    />
-  </div>
 )
 
-const calcCoverTagIndex = (tag) => {
-  let index = 0
-  for (let i = 0; i < tag.length; i++) {
-    index ^= tag.charCodeAt(i)
-  }
-  return index % 14
-}
-
-const TagImage = ({ tag }) => (
-  <div css={styles.coverImageContainer}>
-    <div>
-      <StaticImage relativePath={`header/cover-tag/${calcCoverTagIndex(tag)}.png`}/>
-      <div css={styles.coverImageOverray}></div>
-    </div>
-    <h2 css={styles.coverTagTitle}>
-      {tag}
-    </h2>
-  </div>
-)
-
-const TagsImage = () => (
-  <div css={styles.coverImageContainer}>
-    <div>
-      <StaticImage relativePath='header/cover-tagtag.png'/>
-      <div css={styles.coverImageOverray}></div>
-    </div>
-    <StaticImage
-      relativePath="header/cover-tagtag-title.png"
-      css={styles.coverTagsTitle}
-    />
-  </div>
-)
-
-const AboutImage = () => (
-  <div css={styles.coverImageContainer}>
-    <div>
-      <StaticImage relativePath='header/cover-about.png'/>
-      <div css={styles.coverImageOverray}></div>
-    </div>
-    <StaticImage
-      relativePath="header/cover-about-message.png"
-      css={styles.coverAboutTitle}
-    />
-  </div>
-)
-
-const ErrorImage = ({ code }) => (
-  <div css={styles.coverImageContainer}>
-    <div>
-      <StaticImage relativePath='header/cover-error.png'/>
-      <div css={styles.coverImageOverray}></div>
-    </div>
-    <h2 css={styles.coverErrorTitle}>
-      {code}
-    </h2>
-  </div>
-)
-
-const Cover = ({ templateName, pageContext }) => (
-  <>
-    {templateName === templates.blogPostsAll.name && <RootImage/>}
-    {templateName === templates.blogPostsTag.name && <TagImage tag={pageContext.tag}/>}
-    {templateName === templates.tags.name && <TagsImage pageContext={pageContext}/>}
-    {templateName === templates.about.name && <AboutImage pageContext={pageContext}/>}
-    {templateName === templates._404.name && <ErrorImage code='404'/>}
-  </>
-)
-
-const SiteHeader = ({ pageContext }) => (
-  <header>
-    <Navigation
-      title={pageContext.siteMetadata.title}
-      social={pageContext.siteMetadata.social}
-      tags={pageContext.menuTags}
-    />
-    <div>
-      <div css={styles.headerSpacer}></div>
-      <Cover
-        templateName={pageContext.templateName}
-        pageContext={pageContext}
-      />
-    </div>
-  </header>
+const Title = ({ children }) => (
+    <h1 css={styles.title}>
+        <Link to={`/`}>{children}</Link>
+    </h1>
 )
 
 export default SiteHeader

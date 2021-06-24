@@ -1,7 +1,11 @@
 import React from "react"
 import { css } from "@emotion/react"
-
 import theme from "../styles/theme"
+
+import "@fontsource/m-plus-1p"
+import "@fontsource/kanit"
+import "@fontsource/niconne"
+import "@fontsource/jetbrains-mono"
 
 const styles = {
   notice: css`
@@ -10,10 +14,10 @@ const styles = {
     top: -16px;
     left: 4px;
 
-    font-family: 'Kanit';
+    font-family: 'Kanit' !important;
     font-size: 12px;
     font-weight: 800;
-    color: ${theme.colors.darkBlue.color};
+    color: ${theme.colors.darkBlue.color} !important;
     text-transform: uppercase;
     text-shadow:
        1px  1px 1px ${theme.colors.black.color},
@@ -23,7 +27,7 @@ const styles = {
        1px  0px 1px ${theme.colors.black.color},
        0px  1px 1px ${theme.colors.black.color},
       -1px  0px 1px ${theme.colors.black.color},
-       0px -1px 1px ${theme.colors.black.color};
+       0px -1px 1px ${theme.colors.black.color} !important;
   `,
 }
 

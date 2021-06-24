@@ -1,271 +1,187 @@
-const { createFilePath } = require(`gatsby-source-filesystem`)
-const { templates } = require(`./src/utils/templates`)
+const {resolve} = require("path");
+const {createFilePath} = require("gatsby-source-filesystem");
 
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage, createRedirect } = actions
+exports.createPages = async ({graphql, actions}) => {
+    const {createPage, createRedirect} = actions
 
-  const siteMetadata = (await graphql(
-    `
-      {
-        site {
-          siteMetadata {
-            title
-            social {
-              twitter
-              github
+    const siteMetadata = (await graphql(`
+        {
+            site {
+                siteMetadata {
+                    title
+                    social {
+                        twitter
+                        github
+                    }
+                    filteredTags
+                    pagination {
+                        postsPerPage
+                    }
+                }
             }
-            filteredTags
-          }
         }
-      }
-    `
-  )).data.site.siteMetadata
+    `)).data.site.siteMetadata
 
-  const result = await graphql(
-    `
-      {
-        allMarkdownRemark(
-          sort: { fields: [frontmatter___date], order: DESC }
-          limit: 1000
-        ) {
-          edges {
-            node {
-              fields {
-                slug
-              }
-              frontmatter {
-                title
-                path
-                tags
-                description
-                redirect_from
-              }
+    const posts = (await graphql(`
+        {
+            allMarkdownRemark(
+                filter: {fields: {slug: {regex: "^/posts/"}}}
+                sort: { fields: [frontmatter___date], order: DESC }
+            ) {
+                nodes {
+                    fields {
+                        slug
+                    }
+                    frontmatter {
+                        title
+                        path
+                        tags
+                        redirect_from
+                    }
+                }
             }
-          }
         }
-      }
-    `
-  )
+    `)).data.allMarkdownRemark.nodes
 
-  if (result.errors) {
-    throw result.errors
-  }
+    const tags = posts
+        .map(node => node.frontmatter.tags)
+        .reduce((acc, cur) => ([...acc, ...(
+            cur
+                ? Array.isArray(cur)
+                ? cur
+                : [cur]
+                : []
+        )]), [])
+        .reduce((acc, cur) => {
+            const found = acc.find(({ name }) => (name === cur))
+            if (found) {
+                found.count++
+                return acc
+            } else {
+                return [
+                    ...acc,
+                    { name: cur, count: 1, },
+                ]
+            }
+        }, [])
 
-  const posts = result.data.allMarkdownRemark.edges.filter(({ node }) => (
-    node.fields.slug.startsWith('/posts/')
-  ))
+    const postsPerPage = siteMetadata.pagination.postsPerPage
 
-  const tags = posts
-    .map(({ node }) => node.frontmatter.tags)
-    .reduce((acc, cur) => ([...acc, ...(
-      cur
-        ? Array.isArray(cur)
-          ? cur
-          : [cur]
-        : []
-    )]), [])
-    .reduce((acc, cur) => {
-      const found = acc.find(({ name }) => (name === cur))
-      if (found) {
-        found.count++
-        return acc
-      } else {
-        return [
-          ...acc,
-          { name: cur, count: 1, },
-        ]
-      }
-    }, [])
+    const createPaginatedPage = ({ basePath, component, limit, skip, maxIndex, currentIndex, context }) => {
+        const pageParams = {
+            path: `${basePath}/${currentIndex}`,
+            component: component,
+            context: {
+                limit: limit,
+                skip: skip,
+                maxIndex: maxIndex,
+                currentIndex: currentIndex,
+                nextPath: currentIndex > 1 ? `${basePath}/${currentIndex - 1}` : null,
+                prevPath: currentIndex < maxIndex ? `${basePath}/${currentIndex + 1}` : null,
+                ...context,
+            },
+        }
 
-  const menuTags = tags
-    .filter(({ name }) => (!siteMetadata.filteredTags.includes(name)))
-    .sort((a, b) => b.count - a.count)
+        createPage(pageParams)
 
-  const createPageToPaginated = ({ basePath, component, limit, skip, maxPageNumber, currentPageNumber, context }) => {
-    const pageParams = {
-      path: `${basePath}/${currentPageNumber}`,
-      component: component,
-      context: {
-        siteMetadata: siteMetadata,
-        menuTags: menuTags,
-        limit: limit,
-        skip: skip,
-        maxPageNumber: maxPageNumber,
-        currentPageNumber: currentPageNumber,
-        nextPath: currentPageNumber > 1 ? `${basePath}/${currentPageNumber - 1}` : null,
-        previousPath: currentPageNumber < maxPageNumber ? `${basePath}/${currentPageNumber + 1}` : null,
-        ...context,
-      },
+        if (currentIndex === 1) {
+            pageParams.path = `${basePath}/`
+            createPage(pageParams)
+        }
     }
 
-    createPage(pageParams)
-
-    if (currentPageNumber === 1) {
-      pageParams.path = `${basePath}/`
-      createPage(pageParams)
-    }
-  }
-
-  const postsPerPage = 10
-
-  /* Create Paginated Blog posts */
-  const createPageToPaginatedBlogPostsAll = ({ limit, skip, maxPageNumber, currentPageNumber }) => {
-    createPageToPaginated({
-      basePath: '',
-      component: templates.blogPostsAll.component,
-      limit: limit,
-      skip: skip,
-      maxPageNumber: maxPageNumber,
-      currentPageNumber: currentPageNumber,
-      context: {
-        templateName: templates.blogPostsAll.name,
-      },
-    })
-  }
-
-  const postsAllCount = posts.length
-  const postsAllMaxPageNumber = Math.ceil(postsAllCount / postsPerPage)
-
-  Array.from({ length: postsAllMaxPageNumber }).forEach((_, i) => {
-    createPageToPaginatedBlogPostsAll({
-      limit: postsPerPage,
-      skip: i * postsPerPage,
-      maxPageNumber: postsAllMaxPageNumber,
-      currentPageNumber: i + 1,
-    })
-  })
-
-  /* Create Paginated Blog posts by tag */
-  tags.forEach(({ name }, _) => {
-    const tag = name
-    const createPageToPaginatedBlogPostsTag = ({ limit, skip, maxPageNumber, currentPageNumber, context }) => {
-      createPageToPaginated({
-        basePath: `/tag/${tag}`,
-        component: templates.blogPostsTag.component,
-        limit: limit,
-        skip: skip,
-        maxPageNumber: maxPageNumber,
-        currentPageNumber: currentPageNumber,
-        context: {
-          templateName: templates.blogPostsTag.name,
-          ...context
-        },
-      })
+    /* Create Paginated Blog posts */
+    const createPaginatedBlogPostsAllPage = ({ limit, skip, maxIndex, currentIndex }) => {
+        createPaginatedPage({
+            basePath: '',
+            component: resolve(`./src/templates/blogPostsAll.js`),
+            limit: limit,
+            skip: skip,
+            maxIndex: maxIndex,
+            currentIndex: currentIndex,
+        })
     }
 
-    const postsTagCount = posts
-      .filter(({ node }) => node.frontmatter.tags && node.frontmatter.tags.includes(tag)).length
-    const postsTagMaxPageNumber = Math.ceil(postsTagCount / postsPerPage)
-  
-    Array.from({ length: postsTagMaxPageNumber }).forEach((_, i) => {
-      createPageToPaginatedBlogPostsTag({
-        limit: postsPerPage,
-        skip: i * postsPerPage,
-        maxPageNumber: postsTagMaxPageNumber,
-        currentPageNumber: i + 1,
-        context: {
-          tag: tag,
-        },
-      })
+    const postsAllMaxIndex = Math.ceil(posts.length / postsPerPage)
+
+    Array.from({ length: postsAllMaxIndex }).forEach((_, i) => {
+        createPaginatedBlogPostsAllPage({
+            limit: postsPerPage,
+            skip: i * postsPerPage,
+            maxIndex: postsAllMaxIndex,
+            currentIndex: i + 1,
+        })
     })
-  })
 
-  /* Create Blog post pages */
-  posts.forEach((post, index) => {
-    const previous = index === posts.length - 1 ? null : posts[index + 1].node
-    const next = index === 0 ? null : posts[index - 1].node
-    
-    createPage({
-      path: post.node.frontmatter.path
-        ? post.node.frontmatter.path
-        : post.node.fields.slug,
-      component: templates.blogPost.component,
-      context: {
-        siteMetadata: siteMetadata,
-        templateName: templates.blogPost.name,
-        menuTags: menuTags,
-        slug: post.node.fields.slug,
-        previous,
-        next,
-      },
+    /* Create Paginated Blog posts by Tag */
+    tags.forEach(({ name }, _) => {
+        const tag = name
+        const createPaginatedBlogPostsTagPage = ({ limit, skip, maxIndex, currentIndex }) => {
+            createPaginatedPage({
+                basePath: `/tag/${tag}`,
+                component: resolve(`./src/templates/blogPostsTag.js`),
+                limit: limit,
+                skip: skip,
+                maxIndex: maxIndex,
+                currentIndex: currentIndex,
+                context: {
+                    tag: tag,
+                },
+            })
+        }
+
+        const postsCount = posts
+            .filter(node => node.frontmatter.tags && node.frontmatter.tags.includes(tag)).length
+        const postsTagMaxIndex = Math.ceil(postsCount / postsPerPage)
+
+        Array.from({ length: postsTagMaxIndex }).forEach((_, i) => {
+            createPaginatedBlogPostsTagPage({
+                limit: postsPerPage,
+                skip: i * postsPerPage,
+                maxIndex: postsTagMaxIndex,
+                currentIndex: i + 1,
+            })
+        })
     })
-  })
 
-  /* Create Feature pages */
-  const features = result.data.allMarkdownRemark.edges.filter(({ node }) => (
-    node.fields.slug.startsWith('/features/')
-  ))
+    /* Create Blog post pages */
+    posts.forEach((post, index) => {
+        const prev = index === posts.length - 1 ? null : posts[index + 1]
+        const next = index === 0 ? null : posts[index - 1]
 
-  features.forEach((feature, _) => {
-    const template =
-      (feature.node.fields.slug  === '/features/about/')
-        ? templates.about
-      : templates.blogPost
-    
-    createPage({
-      path: feature.node.frontmatter.path
-        ? feature.node.frontmatter.path
-        : feature.node.fields.slug,
-      component: template.component,
-      context: {
-        siteMetadata: siteMetadata,
-        templateName: template.name,
-        menuTags: menuTags,
-        slug: feature.node.fields.slug,
-      },
+        createPage({
+            path: post.frontmatter.path
+                ? post.frontmatter.path
+                : post.fields.slug,
+            component: resolve(`./src/templates/blogPost.js`),
+            context: {
+                slug: post.fields.slug,
+                nextPath: !next
+                    ? null
+                    : next.frontmatter.path
+                        ? next.frontmatter.path
+                        : next.fields.slug,
+                nextTitle: next && next.frontmatter.title,
+                prevPath: !prev
+                    ? null
+                    : prev.frontmatter.path
+                        ? prev.frontmatter.path
+                        : prev.fields.slug,
+                prevTitle: prev && prev.frontmatter.title,
+            },
+        })
     })
-  })
-
-  /* Create Tags page */
-  createPage({
-    path: '/tags',
-    component: templates.tags.component,
-    context: {
-      siteMetadata: siteMetadata,
-      templateName: templates.tags.name,
-      menuTags: menuTags,
-    },
-  })
-
-  /* Create 404 page */
-  createPage({
-    path: '/404',
-    component: templates._404.component,
-    context: {
-      siteMetadata: siteMetadata,
-      templateName: templates._404.name,
-      menuTags: menuTags,
-    },
-  })
-
-  /* Create redirect mapping */
-  posts.filter(({ node }) => (
-    node.frontmatter.redirect_from && node.frontmatter.redirect_from.length
-  )).forEach(({ node }) => {
-    const to = node.frontmatter.path
-      ? node.frontmatter.path
-      : node.fields.slug
-    
-    node.frontmatter.redirect_from.forEach((from) => {
-      createRedirect({
-        fromPath: from,
-        toPath: to,
-        isPermanent: true,
-        redirectInBrowser: true,
-      })
-    })
-  })
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+exports.onCreateNode = ({node, actions, getNode}) => {
+    const {createNodeField} = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
-  }
+    if (node.internal.type === `MarkdownRemark` || node.internal.type === `ImageSharp`) {
+        const slug = createFilePath({node, getNode})
+        createNodeField({
+            node,
+            name: `slug`,
+            value: slug,
+        })
+    }
 }
