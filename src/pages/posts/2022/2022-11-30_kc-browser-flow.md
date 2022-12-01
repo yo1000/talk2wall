@@ -19,3 +19,9 @@ KeycloakでSSOする際に発生する認可コードフローと、取り交わ
 ## フロー
 
 ![BrowserFlow](2022-11-30_kc-browser-flow.png)
+
+
+## 参考
+
+- http://openid-foundation-japan.github.io/openid-connect-core-1_0.ja.html#Overview
+- http://openid-foundation-japan.github.io/openid-connect-core-1_0.ja.html#IDToken
