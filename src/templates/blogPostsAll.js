@@ -15,8 +15,11 @@ import PostListNav from "../components/postListNav";
 const BlogPostsAllTemplate = ({pageContext, data}) => {
     const style = css`
         position: relative;
-        max-width: 760px;
-        margin: -56px auto 0 auto;
+        display: flex;
+        flex-flow: wrap;
+
+        max-width: none;
+        margin: -56px auto auto auto;
         padding: 0 48px;
 
         @media screen and (max-width: 640px) {

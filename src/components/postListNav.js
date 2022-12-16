@@ -5,100 +5,126 @@ import * as React from "react";
 import {css} from "@emotion/react";
 
 const PostListNav = ({nextPath, prevPath}) => {
-    const nav = css`
-        ul {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            list-style: none;
-            margin: 24px 0;
-            padding: 0;
+    const styles = {
+        article: css`
+            ${theme.styles.cardSemiTransparency};
+
+            width: 44rem;
+            min-width: 44rem;
+
+            padding: 1.75rem 1.5rem;
+            margin: 0 auto 24px;
 
             @media screen and (max-width: 640px) {
                 margin: 0;
             }
 
-            li {
-                ${theme.styles.cardOpacity};
+            h1, h2, h3, h4, h5, h6 {
+                color: ${theme.colors.white.color};
+                text-shadow: ${theme.colors.white.textShadow} 1px 1px;
+            }
 
-                display: flex;
-                width: 100%;
-                height: 3em;
-                margin: 0;
-                padding: 0 1.5em;
+            h2, h2 {
+                text-shadow: ${theme.colors.white.textShadow} 2px 2px;
+            }
 
+            a {
+                box-shadow: none;
+                text-decoration: none;
+                text-shadow: ${theme.colors.blue.textShadow} 1px 1px;
+            }
+
+            p, ul,
+            blockquote,
+            footer {
                 a,
                 a:active,
-                a:hover,
                 a:visited {
-                    box-shadow: none;
-                    text-decoration: none;
                     color: ${theme.colors.blue.color};
-                    text-shadow: ${theme.colors.blue.textShadow} 1px 1px;
-
-                    height: 2em;
-                    width: 100%;
-                    margin: auto 0;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                }
-
-                .gatsby-image-wrapper {
-                    width: 6px;
-                    margin: auto 0;
-                }
-
-                &.next {
-                    a {
-                        margin-left: -6px;
-                    }
-
-                    .gatsby-image-wrapper {
-                        left: -35px;
-                    }
-                }
-
-                &.prev {
-                    a {
-                        margin-right: -6px;
-                    }
-
-                    .gatsby-image-wrapper {
-                        right: -35px;
-                    }
                 }
             }
-
-            @media screen and (max-width: 479px) {
+        `,
+        header: css`
+            ul {
                 margin: 0;
-            }
-        }
-    `
+                padding: 0;
+                list-style: none;
 
+                li {
+                    display: inline-block;
+                    margin-right: .5rem;
+                    margin-bottom: 0;
+                }
+            }
+        `,
+        arrowLeft: css`
+            width: .5rem;
+            top: 1rem;
+            margin-right: .5rem;
+        `,
+        arrowRight: css`
+            width: .5rem;
+            top: 1rem;
+            margin-left: .5rem;
+        `,
+        title: css`
+            margin-top: 0;
+            margin-bottom: .4375rem;
+        `,
+        titleLink: css`
+            box-shadow: none;
+            color: ${theme.colors.white.color};
+            text-shadow: ${theme.colors.white.textShadow} 2px 2px;
+        `,
+        excerpt: css`
+            margin-bottom: 0;
+        `,
+        spacer: css`
+            opacity: 0;
+
+            width: 44rem;
+            min-width: 44rem;
+
+            padding: 0 1.5rem;
+            margin: 0 auto 0;
+        `,
+    }
 
     return (
-        <nav css={nav}>
-            <ul>
-                {nextPath && (
-                    <li className="next">
-                        <StaticImage src="../images/arrow-left.png"/>
-                        <Link to={nextPath} rel="next" className="next">
+        <> {nextPath && (
+            <article css={styles.article}>
+                <header css={styles.header}>
+                    <h2 css={styles.title}>
+                        <StaticImage css={styles.arrowLeft} src="../images/arrow-left.png"/>
+                        <Link css={styles.titleLink} to={nextPath}>
                             Newer posts
                         </Link>
-                    </li>
-                )}
-                {prevPath && (
-                    <li className="prev">
-                        <Link to={prevPath} rel="prev" className="prev">
+                    </h2>
+                    <small></small>
+                </header>
+                <section>
+                    <p css={styles.excerpt}/>
+                </section>
+            </article>
+        )} {prevPath && (
+            <article css={styles.article}>
+                <header css={styles.header}>
+                    <h2 css={styles.title}>
+                        <Link css={styles.titleLink} to={prevPath}>
                             Older posts
                         </Link>
-                        <StaticImage src="../images/arrow-right.png"/>
-                    </li>
-                )}
-            </ul>
-        </nav>
-    )
+                        <StaticImage css={styles.arrowRight} src="../images/arrow-right.png"/>
+                    </h2>
+                    <small></small>
+                </header>
+                <section>
+                    <p css={styles.excerpt}/>
+                </section>
+            </article>
+        )} {(!nextPath || !prevPath) && (
+            <div css={styles.spacer}></div>
+        )} </>
+)
 }
 
 export default PostListNav

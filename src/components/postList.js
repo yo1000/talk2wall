@@ -8,8 +8,11 @@ const PostList = ({postNodes}) => {
         article: css`
             ${theme.styles.cardSemiTransparency};
 
+            width: 44rem;
+            min-width: 44rem;
+
             padding: 1.75rem 1.5rem;
-            margin: 0 0 24px;
+            margin: 0 auto 24px;
 
             @media screen and (max-width: 640px) {
                 margin: 0;
