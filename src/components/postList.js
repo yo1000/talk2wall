@@ -10,9 +10,24 @@ const PostList = ({postNodes}) => {
 
             width: 44rem;
             min-width: 44rem;
+            max-width: 44rem;
+
+            height: 15rem;
+            min-height: 15rem;
+            max-height: 15rem;
 
             padding: 1.75rem 1.5rem;
             margin: 0 auto 24px;
+
+            @media screen and (max-width: 870px) {
+                width: 100%;
+                min-width: auto;
+                max-width: none;
+
+                height: auto;
+                min-height: auto;
+                max-height: none;
+            }
 
             @media screen and (max-width: 640px) {
                 margin: 0;
