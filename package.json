@@ -13,7 +13,7 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "http": "http-server -p 8080 public"
+    "http": "http-server -p 8000 public"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

@@ -47,11 +47,12 @@ const theme = new class Theme {
             constructor() {
                 const stylesThis = this
                 stylesThis.cardOpacity = css`
-                    border-color: #747474 #313131 #313131 #747474;
                     border-radius: 2px;
-                    border-width: 4px;
-                    border-style: groove ridge ridge groove;
-
+                    border-top: 2px solid #838383;
+                    border-left: 2px solid #838383;
+                    border-right: 2px solid #393939;
+                    border-bottom: 2px solid #393939;
+                    
                     color: ${themeThis.colors.white.color};
                     text-shadow: ${themeThis.colors.white.textShadow} 1px 1px;
                     background: linear-gradient(90deg,
@@ -69,8 +70,9 @@ const theme = new class Theme {
                     ${stylesThis.cardOpacity}
 
                     background: linear-gradient(90deg,
-                    rgba(101, 101, 101, .67),
-                    rgba(170, 170, 170, .67)) 50%;
+                    rgba(101, 101, 101, .67) 0,
+                    rgba(152, 152, 152, .67) 67%
+                    );
                 `
             }
         }()

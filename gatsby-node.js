@@ -94,7 +94,7 @@ exports.createPages = async ({graphql, actions}) => {
     const createPaginatedBlogPostsAllPage = ({ limit, skip, maxIndex, currentIndex }) => {
         createPaginatedPage({
             basePath: '',
-            component: resolve(`./src/templates/blogPostsAll.js`),
+            component: resolve(`./src/templates/PostsAll.js`),
             limit: limit,
             skip: skip,
             maxIndex: maxIndex,
@@ -119,7 +119,8 @@ exports.createPages = async ({graphql, actions}) => {
         const createPaginatedBlogPostsTagPage = ({ limit, skip, maxIndex, currentIndex }) => {
             createPaginatedPage({
                 basePath: `/tag/${tag}`,
-                component: resolve(`./src/templates/blogPostsTag.js`),
+                component: resolve(`./src/templates/PostsTagged.js`),
+                // component: resolve(`./src/templates/blogPostsTag.js`),
                 limit: limit,
                 skip: skip,
                 maxIndex: maxIndex,
@@ -153,7 +154,7 @@ exports.createPages = async ({graphql, actions}) => {
             path: post.frontmatter.path
                 ? post.frontmatter.path
                 : post.fields.slug,
-            component: resolve(`./src/templates/blogPost.js`),
+            component: resolve(`./src/templates/Post.js`),
             context: {
                 slug: post.fields.slug,
                 nextPath: !next

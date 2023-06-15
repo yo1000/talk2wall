@@ -1,22 +1,29 @@
 import * as React from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import {css} from "@emotion/react";
+import theme from "../styles/theme";
+import CoverError from "../components/CoverError";
 
-import SiteHeader from "../components/siteHeader";
-import SiteFooter from "../components/siteFooter";
-import {ErrorCover} from "../components/covers";
-import Seo from "../components/seo";
+export default function ErrorPage() {
+    const headerLines = 2;
 
-const ErrorPage = () => {
-  return (
-      <main>
-        <SiteHeader>
-          <ErrorCover/>
-        </SiteHeader>
+    const style = css`
+      position: relative;
+      top: ${44 * headerLines - 2 * (headerLines - 1)}px;
 
-        <Seo title="error - 404"/>
+      * {
+        word-break: break-all;
+        color: ${theme.colors.white.color};
+        text-shadow: ${theme.colors.white.textShadow} 1px 1px;
+      }
+    `
 
-        <SiteFooter/>
+    return (
+      <main css={style}>
+          <Header/>
+          <CoverError/>
+          <Footer/>
       </main>
   )
 }
-
-export default ErrorPage

@@ -12,7 +12,7 @@ module.exports = {
             github: `yo1000`,
         },
         pagination: {
-            postsPerPage: 10,
+            postsPerPage: 12,
         },
         filteredTags: [
             `Tech`,

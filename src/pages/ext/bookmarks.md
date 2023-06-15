@@ -11,8 +11,7 @@ author: yo1000
 * [【Spring Data JPA】自動実装されるメソッドの命名ルール](https://qiita.com/shindo_ryo/items/af7d12be264c2cc4b252)
 
 ## Git
-* [Gitの離れたcommitをまとめる（git rebase -i）
-Git](https://kitigai.hatenablog.com/entry/2019/05/22/003841)
+* [Gitの離れたcommitをまとめる（git rebase -i）](https://kitigai.hatenablog.com/entry/2019/05/22/003841)
 
 ## Linux
 * [systemd(1)](https://man.kusakata.com/man/systemd.1.html)
