@@ -96,7 +96,7 @@ export default function Copyright() {
             <div className="decorationOpen">
           <span className="left">
             <StaticImage
-                src="../../images/footer/wing-left.png"
+                src="../images/footer/wing-left.png"
                 alt="wing-left"
                 layout="fullWidth"
                 objectFit="contain"
@@ -109,7 +109,7 @@ export default function Copyright() {
                 <span className="center">Copyright</span>
                 <span className="right">
             <StaticImage
-                src="../../images/footer/wing-right.png"
+                src="../images/footer/wing-right.png"
                 alt="wing-right"
                 layout="fullWidth"
                 objectFit="contain"
@@ -127,7 +127,7 @@ export default function Copyright() {
             <div className="decorationClose">
           <span className="center">
             <StaticImage
-                src="../../images/footer/wing-bottom.png"
+                src="../images/footer/wing-bottom.png"
                 alt="wing-bottom"
                 layout="fullWidth"
                 objectFit="contain"

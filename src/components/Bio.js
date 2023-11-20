@@ -44,7 +44,7 @@ export default function Bio() {
         <section css={style} className="bio">
             <StaticImage
                 className="avatar"
-                src="../../images/avatar.png"
+                src="../images/avatar.png"
                 alt="avatar"
                 layout="fullWidth"
                 objectFit="contain"

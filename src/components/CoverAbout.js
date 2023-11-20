@@ -48,7 +48,7 @@ export default function CoverAbout() {
         <div css={style} className={`coverAbout`}>
             <div className="imageContainer">
                 <StaticImage
-                    src="../../images/header/cover-about.png"
+                    src="../images/header/cover-about.png"
                     alt="cover"
                     layout="fullWidth"
                     objectFit="contain"
@@ -59,7 +59,7 @@ export default function CoverAbout() {
                 />
                 <div className="balloonContainer">
                     <StaticImage
-                        src="../../images/header/cover-about-message.png"
+                        src="../images/header/cover-about-message.png"
                         alt="cover"
                         layout="fullWidth"
                         objectFit="contain"

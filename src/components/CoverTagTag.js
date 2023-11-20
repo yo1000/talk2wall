@@ -48,7 +48,7 @@ export default function CoverTagTag() {
         <div css={style} className={`coverTagTag`}>
             <div className="imageContainer">
                 <StaticImage
-                    src="../../images/header/cover-tagtag.png"
+                    src="../images/header/cover-tagtag.png"
                     alt="cover"
                     layout="fullWidth"
                     objectFit="contain"
@@ -59,7 +59,7 @@ export default function CoverTagTag() {
                 />
                 <div className="balloonContainer">
                     <StaticImage
-                        src="../../images/header/cover-tagtag-title.png"
+                        src="../images/header/cover-tagtag-title.png"
                         alt="cover"
                         layout="fullWidth"
                         objectFit="contain"

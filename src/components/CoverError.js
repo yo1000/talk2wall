@@ -47,7 +47,7 @@ export default function CoverError({code}) {
     return (
         <div css={style} className={`coverError`}>
             <div css={css`margin-top: 80px;`} className={`imageContainer`}>
-                <StaticImage src='../../images/header/cover-error.png' alt="cover"/>
+                <StaticImage src='../images/header/cover-error.png' alt="cover"/>
                 <div className="balloonContainer">
                     <h2>
                         <center>{code}</center>
