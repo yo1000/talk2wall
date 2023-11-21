@@ -20,6 +20,7 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/jetbrains-mono": "^4.5.11",
     "@fontsource/kanit": "^4.5.10",
+    "@fontsource/kings": "^5.0.17",
     "@fontsource/m-plus-1p": "^4.5.10",
     "@fontsource/niconne": "^4.5.9",
     "flexsearch": "^0.7.31",

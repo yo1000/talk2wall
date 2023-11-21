@@ -5,7 +5,7 @@ import {css} from "@emotion/react";
 import theme from "../styles/theme";
 import CoverError from "../components/CoverError";
 
-export default function ErrorPage() {
+export default function NotFoundPage() {
     const headerLines = 2;
 
     const style = css`
@@ -22,7 +22,7 @@ export default function ErrorPage() {
     return (
       <main css={style}>
           <Header/>
-          <CoverError/>
+          <CoverError status={`Not Found`}/>
           <Footer/>
       </main>
   )

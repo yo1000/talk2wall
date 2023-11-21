@@ -2,7 +2,7 @@ import React from "react";
 import {StaticImage} from "gatsby-plugin-image";
 import {css} from "@emotion/react";
 
-export default function CoverError({code}) {
+export default function CoverError({status}) {
     const style = css`
       position: relative;
 
@@ -18,12 +18,17 @@ export default function CoverError({code}) {
         .balloonContainer {
           position: absolute;
 
-          max-width: 103px;
           height: 100%;
 
           margin: 0 auto;
           inset: 0;
-          top: 45%;
+          top: calc(50% - 4rem);
+          
+          * {
+            font-family: 'Kings', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+          }
         }
 
         &::after {
@@ -50,7 +55,7 @@ export default function CoverError({code}) {
                 <StaticImage src='../images/header/cover-error.png' alt="cover"/>
                 <div className="balloonContainer">
                     <h2>
-                        <center>{code}</center>
+                        <center>{status}</center>
                     </h2>
                 </div>
             </div>

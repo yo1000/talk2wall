@@ -5,4 +5,5 @@ import "prismjs/themes/prism-tomorrow.css"
 import '@fontsource/m-plus-1p';
 import '@fontsource/kanit';
 import '@fontsource/niconne';
+import '@fontsource/kings';
 import '@fontsource/jetbrains-mono';

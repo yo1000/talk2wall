@@ -5,7 +5,7 @@ import Bio from "./Bio";
 
 export default function Footer() {
     const style = css`
-      // None
+      position: relative;
     `
 
     return (
