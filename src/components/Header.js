@@ -26,13 +26,13 @@ export default function Header() {
 
           width: calc(100% - 11.25rem);
           height: calc(2.75rem - 8px);
-          margin: 0 auto;
+          margin: 0 3px;
         }
 
         .title {
           position: relative;
           top: 2px;
-          left: -1px;
+          left: -2px;
 
           width: calc(11.25rem - 6px);
           height: calc(2.75rem - 8px);

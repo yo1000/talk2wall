@@ -23,7 +23,7 @@ export default function CoverAbout() {
 
           margin: 0 auto;
           inset: 0;
-          top: 45%;
+          top: calc(50% - 1.5rem);
         }
 
         &::after {

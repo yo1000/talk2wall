@@ -23,7 +23,7 @@ export default function CoverTagTag() {
 
           margin: 0 auto;
           inset: 0;
-          top: 45%;
+          top: calc(50% - 1rem);
         }
 
         &::after {
