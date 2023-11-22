@@ -13,7 +13,8 @@ export default function Title({...props}) {
       h1 {
         display: inline-block;
         position: absolute;
-
+        top: -1px;
+        
         height: 1rem;
         line-height: 1.25rem;
         font-size: 1rem;
