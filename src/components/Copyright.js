@@ -101,7 +101,7 @@ export default function Copyright() {
                 layout="fullWidth"
                 objectFit="contain"
                 placeholder="blurred"
-                quality={100}
+                quality={50}
                 formats={[" AUTO", "WEBP", "AVIF"]}
                 transformOptions={{fit: "inside", cropFocus: "attention"}}
             />
@@ -114,7 +114,7 @@ export default function Copyright() {
                 layout="fullWidth"
                 objectFit="contain"
                 placeholder="blurred"
-                quality={100}
+                quality={50}
                 formats={[" AUTO", "WEBP", "AVIF"]}
                 transformOptions={{fit: "inside", cropFocus: "attention"}}
             />
@@ -132,7 +132,7 @@ export default function Copyright() {
                 layout="fullWidth"
                 objectFit="contain"
                 placeholder="blurred"
-                quality={100}
+                quality={50}
                 formats={["AUTO", "WEBP", "AVIF"]}
                 transformOptions={{fit: "inside", cropFocus: "attention"}}
             />

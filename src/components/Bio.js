@@ -49,7 +49,7 @@ export default function Bio() {
                 layout="fullWidth"
                 objectFit="contain"
                 placeholder="blurred"
-                quality={100}
+                quality={50}
                 formats={["AUTO", "WEBP", "AVIF"]}
                 transformOptions={{fit: "inside", cropFocus: "attention"}}
             />

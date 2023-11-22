@@ -56,7 +56,7 @@ export default function CoverTagged({tagName}) {
     const covers = useStaticQuery(graphql`{
         allImageSharp(filter: {fields: {slug: {regex: "^/header/cover-tag/[0-9]+/"}}}) {
             nodes {
-                gatsbyImageData
+                gatsbyImageData(quality: 50, width: 800)
             }
         }
     }`)
@@ -64,7 +64,10 @@ export default function CoverTagged({tagName}) {
     return (
         <div css={style} className="cover">
             <div className="imageContainer">
-                <GatsbyImage alt="cover" image={covers.allImageSharp.nodes[calcCoverIndex(tagName)].gatsbyImageData}/>
+                <GatsbyImage
+                    image={covers.allImageSharp.nodes[calcCoverIndex(tagName)].gatsbyImageData}
+                    alt="cover"
+                />
                 <div className="balloonContainer">
                     <h2>
                         <center>{tagName}</center>

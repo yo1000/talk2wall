@@ -52,7 +52,17 @@ export default function CoverError({status}) {
     return (
         <div css={style} className={`coverError`}>
             <div css={css`margin-top: 80px;`} className={`imageContainer`}>
-                <StaticImage src='../images/header/cover-error.png' alt="cover"/>
+                <StaticImage
+                    src='../images/header/cover-error.png'
+                    alt="cover"
+                    layout="fullWidth"
+                    objectFit="contain"
+                    placeholder="blurred"
+                    quality={50}
+                    width={800}
+                    formats={[" AUTO", "WEBP", "AVIF"]}
+                    transformOptions={{fit: "inside", cropFocus: "attention"}}
+                />
                 <div className="balloonContainer">
                     <h2>
                         <center>{status}</center>
