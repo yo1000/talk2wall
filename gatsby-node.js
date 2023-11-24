@@ -26,7 +26,7 @@ exports.createPages = async ({graphql, actions}) => {
         {
             allMarkdownRemark(
                 filter: {fields: {slug: {regex: "^/posts/"}}}
-                sort: { fields: [frontmatter___created], order: DESC }
+                sort: { fields: [fields___sortDate], order: DESC }
             ) {
                 nodes {
                     fields {
