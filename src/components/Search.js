@@ -14,13 +14,13 @@ export default function Search() {
             }
             allMarkdownRemark(
                 filter: {fields: {slug: {regex: "^/posts/"}}}
-                sort: {fields: [frontmatter___date], order: DESC}
+                sort: {fields: [frontmatter___created], order: DESC}
             ) {
                 edges {
                     node {
                         excerpt
                         frontmatter {
-                            date(formatString: "YYYY-MM-DD")
+                            created(formatString: "YYYY-MM-DD")
                             title
                             path
                             tags

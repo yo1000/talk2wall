@@ -1,7 +1,7 @@
 ---
 title: Google Chrome のスワイプによる戻るを無効化する
 path: /chrome-swipe-back-disabled
-date: 2021-03-31T00:00:00.000+09:00
+created: 2021-03-31T00:00:00.000+09:00
 author: yo1000
 tags:
   - Tech

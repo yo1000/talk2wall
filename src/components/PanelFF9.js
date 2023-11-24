@@ -6,7 +6,7 @@ import {css} from "@emotion/react";
  * @param {?string} label
  * @constructor
  */
-export default function Panel({label, ...props}) {
+export default function PanelFF9({label, ...props}) {
     const style = css`
       position: relative;
 
@@ -15,16 +15,29 @@ export default function Panel({label, ...props}) {
         height: inherit;
       }
 
-      .content {
-        border-top: 2px solid #838383;
-        border-left: 2px solid #838383;
-        border-right: 2px solid #393939;
-        border-bottom: 2px solid #393939;
-        box-shadow: #292929 0 0 0 2px;
+      .content-wrapper {
+        position: relative;
 
-        background: linear-gradient(90deg,
-        rgba(68, 68, 68, 1) 0,
-        rgba(119, 119, 119, 1) 67%);
+        color: #c8c8c8;
+        text-shadow: #282828 1px 1px;
+
+        border-style: groove ridge ridge groove;
+        border-width: 6px;
+        border-radius: 20px;
+        border-color: #d9d9de;
+
+        .content {
+          position: relative;
+          margin: 0;
+
+          background-image: url(/images/ff9-bg.png);
+          background-repeat: repeat;
+
+          border-style: groove;
+          border-width: 5px;
+          border-radius: 13px;
+          border-color: #939b9b #9c9ca1 #9c9ca1 #939b9b;
+        }
       }
 
       .label {
@@ -59,8 +72,10 @@ export default function Panel({label, ...props}) {
 
     return (
         <div css={style} className={`panel ${props.className ?? ""}`}>
-            <div className={`content`}>
-                {props.children}
+            <div className={`content-wrapper`}>
+                <div className={`content`}>
+                    {props.children}
+                </div>
             </div>
             <label className={`label`}>{label}</label>
         </div>

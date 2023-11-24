@@ -26,7 +26,7 @@ exports.createPages = async ({graphql, actions}) => {
         {
             allMarkdownRemark(
                 filter: {fields: {slug: {regex: "^/posts/"}}}
-                sort: { fields: [frontmatter___date], order: DESC }
+                sort: { fields: [frontmatter___created], order: DESC }
             ) {
                 nodes {
                     fields {
@@ -120,7 +120,6 @@ exports.createPages = async ({graphql, actions}) => {
             createPaginatedPage({
                 basePath: `/tag/${tag}`,
                 component: resolve(`./src/templates/PostsTagged.js`),
-                // component: resolve(`./src/templates/blogPostsTag.js`),
                 limit: limit,
                 skip: skip,
                 maxIndex: maxIndex,
@@ -183,6 +182,15 @@ exports.onCreateNode = ({node, actions, getNode}) => {
             node,
             name: `slug`,
             value: slug,
+        })
+    }
+
+    if (node.internal.type === `MarkdownRemark`) {
+        const slug = createFilePath({node, getNode})
+        createNodeField({
+            node,
+            name: `sortDate`,
+            value: node.frontmatter.modified ?? node.frontmatter.created ?? `1970-01-01T00:00:00.000Z`,
         })
     }
 }

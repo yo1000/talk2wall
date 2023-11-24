@@ -23,7 +23,7 @@ export default function PostsAll({pageContext, data}) {
                     path: n.frontmatter.path ? n.frontmatter.path : n.fields.slug,
                     title: n.frontmatter.title,
                     body: n.excerpt,
-                    date: n.frontmatter.date,
+                    date: n.frontmatter.modified ?? n.frontmatter.created ?? `1970-01-01T00:00:00.000Z`,
                     tags: n.frontmatter.tags,
                 }))}
                 nextPath={pageContext.nextPath}
@@ -43,7 +43,7 @@ export const pageQuery = graphql`
             limit: $limit,
             skip: $skip,
             sort: {
-                frontmatter: { date: DESC }
+                fields: { sortDate: DESC }
             }
         ) {
             nodes {
@@ -52,7 +52,8 @@ export const pageQuery = graphql`
                     slug
                 }
                 frontmatter {
-                    date(formatString: "YYYY-MM-DD")
+                    created(formatString: "YYYY-MM-DD")
+                    modified(formatString: "YYYY-MM-DD")
                     title
                     path
                     tags

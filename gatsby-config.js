@@ -169,7 +169,7 @@ module.exports = {
                             return allMarkdownRemark.nodes.map(node => {
                                 return Object.assign({}, node.frontmatter, {
                                     description: node.excerpt,
-                                    date: node.frontmatter.date,
+                                    created: node.frontmatter.created,
                                     url: `${site.siteMetadata.siteUrl}${
                                         node.frontmatter.path 
                                             ? node.frontmatter.path 
@@ -185,7 +185,7 @@ module.exports = {
                         query: `
                             {
                                 allMarkdownRemark(
-                                    sort: { order: DESC, fields: [frontmatter___date] },
+                                    sort: { order: DESC, fields: [frontmatter___created] },
                                 ) {
                                     nodes {
                                         excerpt
@@ -193,7 +193,7 @@ module.exports = {
                                         fields { slug }
                                         frontmatter {
                                             title
-                                            date
+                                            created
                                             path
                                         }
                                     }

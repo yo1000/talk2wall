@@ -1,7 +1,7 @@
 ---
 title: Java agent をつくってみる
 path: /javaagent
-date: 2020-05-19T00:00:00.000+09:00
+created: 2020-05-19T00:00:00.000+09:00
 author: yo1000
 tags:
   - Tech

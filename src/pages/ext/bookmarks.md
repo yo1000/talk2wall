@@ -1,7 +1,7 @@
 ---
 title: Bookmarks
 path: /bookmarks
-date: 2020-09-06T00:00:00.000+09:00
+created: 2020-09-06T00:00:00.000+09:00
 author: yo1000
 ---
 

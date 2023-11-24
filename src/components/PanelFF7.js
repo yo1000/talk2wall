@@ -6,7 +6,7 @@ import {css} from "@emotion/react";
  * @param {?string} label
  * @constructor
  */
-export default function Panel({label, ...props}) {
+export default function PanelFF7({label, ...props}) {
     const style = css`
       position: relative;
 
@@ -16,15 +16,18 @@ export default function Panel({label, ...props}) {
       }
 
       .content {
-        border-top: 2px solid #838383;
-        border-left: 2px solid #838383;
-        border-right: 2px solid #393939;
-        border-bottom: 2px solid #393939;
-        box-shadow: #292929 0 0 0 2px;
+        position: relative;
+        margin: 0;
+        padding: 1.5rem 1.5rem 1rem;
 
-        background: linear-gradient(90deg,
-        rgba(68, 68, 68, 1) 0,
-        rgba(119, 119, 119, 1) 67%);
+        color: #e6e6e6;
+        text-shadow: #202020 1px 1px;
+        background: linear-gradient(165deg, #0058b0, #000068, #000021);
+
+        border-style: ridge;
+        border-width: 6px;
+        border-radius: 8px;
+        border-color: #dedede #c5c5c5;
       }
 
       .label {

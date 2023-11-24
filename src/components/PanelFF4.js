@@ -6,7 +6,7 @@ import {css} from "@emotion/react";
  * @param {?string} label
  * @constructor
  */
-export default function Panel({label, ...props}) {
+export default function PanelFF4({label, ...props}) {
     const style = css`
       position: relative;
 
@@ -15,16 +15,27 @@ export default function Panel({label, ...props}) {
         height: inherit;
       }
 
-      .content {
-        border-top: 2px solid #838383;
-        border-left: 2px solid #838383;
-        border-right: 2px solid #393939;
-        border-bottom: 2px solid #393939;
-        box-shadow: #292929 0 0 0 2px;
+      .border {
+        border-style: solid;
+        border-width: 4px;
+        border-radius: 4px;
+        border-color: #fff;
+        box-shadow: #888 0 0 0 2px;
 
-        background: linear-gradient(90deg,
-        rgba(68, 68, 68, 1) 0,
-        rgba(119, 119, 119, 1) 67%);
+        .content {
+          position: relative;
+          margin: 0;
+          padding: 1.5rem 1.5rem 1rem;
+
+          color: #e6e6e6;
+          text-shadow: #202020 1px 1px;
+          background: #000063;
+
+          border-style: solid;
+          border-width: 2px;
+          border-radius: 0;
+          border-color: #888;
+        }
       }
 
       .label {
@@ -59,8 +70,10 @@ export default function Panel({label, ...props}) {
 
     return (
         <div css={style} className={`panel ${props.className ?? ""}`}>
-            <div className={`content`}>
-                {props.children}
+            <div className={`border`}>
+                <div className={`content`}>
+                    {props.children}
+                </div>
             </div>
             <label className={`label`}>{label}</label>
         </div>

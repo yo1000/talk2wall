@@ -1,7 +1,7 @@
 ---
 title: Executable JAR のリソースを参照する
 path: /jar-resource
-date: 2020-05-18T00:00:00.000+09:00
+created: 2020-05-18T00:00:00.000+09:00
 author: yo1000
 tags:
   - Tech

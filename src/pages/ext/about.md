@@ -1,7 +1,7 @@
 ---
 title: About
 path: /about
-date: 2020-08-26T00:00:00.000+09:00
+created: 2020-08-26T00:00:00.000+09:00
 author: yo1000
 ---
 

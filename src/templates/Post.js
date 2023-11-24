@@ -14,7 +14,7 @@ export default function Post({pageContext, data}) {
       position: relative;
       top: ${44 * headerLines - 2 * (headerLines - 1)}px;
 
-      .postEntry {
+      .article {
         position: relative;
         max-width: 760px;
 
@@ -31,7 +31,11 @@ export default function Post({pageContext, data}) {
         <main css={style}>
             <Seo title={data.markdownRemark.frontmatter.title}/>
             <Header/>
-            <Article post={data.markdownRemark}/>
+            <Article post={data.markdownRemark}
+                     nextPath={pageContext.nextPath}
+                     nextTitle={pageContext.nextTitle}
+                     prevPath={pageContext.prevPath}
+                     prevTitle={pageContext.prevTitle}/>
             <Footer/>
         </main>
     )
@@ -45,7 +49,8 @@ export const pageQuery = graphql`
             html
             frontmatter {
                 title
-                date(formatString: "YYYY-MM-DD")
+                created(formatString: "YYYY-MM-DD")
+                modified(formatString: "YYYY-MM-DD")
                 tags
             }
         }

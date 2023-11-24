@@ -3,11 +3,10 @@ import React from "react";
 import theme from "../styles/theme";
 import {css} from "@emotion/react";
 import Panel from "./Panel";
+import {StaticImage} from "gatsby-plugin-image";
 
-export default function Article({post}) {
+export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}) {
     const style = css`
-      box-shadow: #292929 0 0 0 2px;
-
       .header {
         position: relative;
         margin: 0;
@@ -53,7 +52,7 @@ export default function Article({post}) {
 
         small {
           display: block;
-          margin: .5rem 0 0;
+          margin: 0;
         }
 
         ul {
@@ -96,9 +95,15 @@ export default function Article({post}) {
         }
 
         hr {
-          height: 0px;
-          margin: 0px -26px 1.5rem -27px;
-          border-radius: 0;
+          display: block;
+          height: 0;
+          margin: 1.25rem -26px;
+          background-color: #000;
+          border-radius: 3px;
+          border-top: 4px solid #393939;
+          border-left: 2px solid #393939;
+          border-right: 2px solid #393939;
+          border-bottom: 2px solid #838383;
         }
 
         h1,
@@ -214,14 +219,78 @@ export default function Article({post}) {
           }
         }
       }
+      
+      & > nav {
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          list-style: none;
+          margin: 24px 0;
+          padding: 0;
+
+          @media screen and (max-width: 640px) {
+            margin: 0;
+          }
+
+          li {
+            width: 100%;
+            margin: 3px 0 0;
+            padding: 0;
+
+            .panel > div {
+              height: calc(2.75rem - 8px);
+              margin: auto;
+              
+              a {
+                line-height: calc(2.75rem - 8px);
+              }
+            }
+
+            a,
+            a:active,
+            a:hover,
+            a:visited {
+              box-shadow: none;
+              text-decoration: none;
+
+              width: 100%;
+              margin: auto 0;
+              padding: .5rem 1.5rem;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+
+            .gatsby-image-wrapper {
+              position: absolute;
+              width: 7px;
+              height: 11px;
+              margin: auto 0;
+            }
+
+            &.next,
+            &.prev {
+              .gatsby-image-wrapper {
+                top: 15px;
+                left: 10px;
+              }
+            }
+          }
+        }
+      }
     `
 
     return (
-        <Panel css={style} className={`postEntry`} label={`STATUS`}>
+        <div css={style} className={`article`}>
+        <Panel label={`STATUS`}>
             <header className={`header`}>
                 <h1>{post.frontmatter.title}</h1>
                 <div>
-                    <small>{post.frontmatter.date}</small>
+                    <small>Created: {post.frontmatter.created}</small>
+                    {post.frontmatter.modified ? (
+                        <small>Modified: {post.frontmatter.modified}</small>
+                    ) : <></>}
                     {post.frontmatter.tags && post.frontmatter.tags.length &&
                         <ul>
                             {post.frontmatter.tags.map((tag) => (
@@ -231,9 +300,34 @@ export default function Article({post}) {
                     }
                 </div>
             </header>
-            <section className={`body`}
-                     dangerouslySetInnerHTML={{__html: post.html}}
-            />
+            <section className={`body`} dangerouslySetInnerHTML={{__html: post.html}}/>
         </Panel>
+            <nav>
+                <ul>
+                    {(nextPath && nextTitle) && (
+                        <li className="next">
+                            <Panel>
+                                <div>
+                                    <StaticImage alt="arrow-left"
+                                                 src="../images/arrow-left.png"
+                                                 quality={50}/>
+                                    <Link to={nextPath} rel="next" className="next">{nextTitle}</Link>
+                                </div>
+                            </Panel>
+                        </li>
+                    )}
+                    {(prevPath && prevTitle) && (
+                        <li className="prev">
+                            <Panel>
+                                <Link to={prevPath} rel="prev" className="prev">{prevTitle}</Link>
+                                <StaticImage alt="arrow-right"
+                                             src="../images/arrow-right.png"
+                                             quality={50}/>
+                            </Panel>
+                        </li>
+                    )}
+                </ul>
+            </nav>
+            </div>
     )
 }

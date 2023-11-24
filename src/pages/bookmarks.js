@@ -13,7 +13,7 @@ export default function BookmarksPage({data}) {
       position: relative;
       top: ${44 * headerLines - 2 * (headerLines - 1)}px;
 
-      .postEntry {
+      .article {
         position: relative;
         max-width: 760px;
 
@@ -44,7 +44,7 @@ export const pageQuery = graphql`
             html
             frontmatter {
                 title
-                date(formatString: "YYYY-MM-DD")
+                created(formatString: "YYYY-MM-DD")
                 tags
             }
         }

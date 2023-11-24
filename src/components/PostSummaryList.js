@@ -1,6 +1,7 @@
 import React from "react";
 import {css} from "@emotion/react";
 import PostSummary from "./PostSummary";
+import {StaticImage} from "gatsby-plugin-image";
 
 /**
  *
@@ -19,6 +20,17 @@ export default function PostSummaryList({postSummaries, nextPath, prevPath}) {
 
       justify-items: center;
       margin: auto;
+
+      .arrow-right,
+      .arrow-left {
+        position: relative;
+        top: 9px;
+        left: 0;
+        
+        width: 6px;
+        height: 11px;
+        margin: auto 0.5rem 0 0;
+      }
 
       @media (min-width: 768px) {
         gap: 3rem;
@@ -48,13 +60,29 @@ export default function PostSummaryList({postSummaries, nextPath, prevPath}) {
             {nextPath ? (
                 <PostSummary
                     path={nextPath}
-                    title={`<< Newer Posts`}
+                    title={(
+                        <div>
+                            <StaticImage className={`arrow-left`}
+                                         alt={`arrow-left`}
+                                         src={`../images/arrow-left.png`}
+                                         quality={50}/>
+                            <span>Newer Posts</span>
+                        </div>
+                    )}
                 />
             ) : <></>}
             {prevPath ? (
                 <PostSummary
                     path={prevPath}
-                    title={`Older Posts >>`}
+                    title={(
+                        <div>
+                            <StaticImage className={`arrow-right`}
+                                         alt={`arrow-right`}
+                                         src={`../images/arrow-right.png`}
+                                         quality={50}/>
+                            <span>Older Posts</span>
+                        </div>
+                    )}
                 />
             ) : <></>}
         </div>

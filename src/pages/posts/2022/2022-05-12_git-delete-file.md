@@ -1,7 +1,7 @@
 ---
 title: Gitで不都合なファイルをコミットから削除する
 path: /git-delete-file
-date: 2022-05-12T00:00:00.000+09:00
+created: 2022-05-12T00:00:00.000+09:00
 author: yo1000
 tags:
   - Tech

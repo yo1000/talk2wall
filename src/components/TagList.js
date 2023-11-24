@@ -190,7 +190,7 @@ export const pageQuery = graphql`
     query {
         allMarkdownRemark(
             filter: {fields: {slug: {regex: "^/posts/"}}}
-            sort: {fields: [frontmatter___date], order: DESC}
+            sort: {fields: [frontmatter___created], order: DESC}
             limit: 1000
         ) {
             nodes {

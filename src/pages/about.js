@@ -12,7 +12,7 @@ export default function AboutPage({data}) {
     const style = css`
       position: relative;
 
-      .postEntry {
+      .article {
         position: relative;
         max-width: 760px;
 
@@ -43,7 +43,7 @@ export const pageQuery = graphql`
             html
             frontmatter {
                 title
-                date(formatString: "YYYY-MM-DD")
+                created(formatString: "YYYY-MM-DD")
                 tags
             }
         }
