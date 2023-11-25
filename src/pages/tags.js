@@ -8,7 +8,17 @@ import TagList from "../components/TagList";
 
 export default function TagsPage({data}) {
     const style = css`
-      // None
+      .tagList {
+        position: relative;
+        max-width: 760px;
+
+        margin: 0 auto;
+        padding: 0;
+
+        @media screen and (max-width: 640px) {
+          padding: 0;
+        }
+      }
     `
 
     const tags = data.allMarkdownRemark.nodes
