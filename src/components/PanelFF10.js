@@ -29,8 +29,6 @@ export default function PanelFF10({label, ...props}) {
           }
 
           .layer1 {
-            width: 100%;
-
             background-image: url(/images/ff10-bg.png);
             background-repeat: repeat;
 

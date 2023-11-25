@@ -21,16 +21,25 @@ export default function PanelsPage({data}) {
       position: relative;
       top: ${44 * headerLines - 2 * (headerLines - 1)}px;
 
-      .demo .panel {
-        width: 640px;
-
+      .demo {
         position: relative;
         max-width: 760px;
-        margin: 0 auto 2rem;
-        
-        .content {
-          line-height: 2rem;
-          padding: 0 48px;
+
+        margin: 0 auto;
+        padding: 0;
+
+        @media screen and (max-width: 640px) {
+          padding: 0;
+        }
+
+        .panel {
+          position: relative;
+          margin: 0 auto 2rem;
+
+          .content {
+            line-height: 2rem;
+            padding: 0 48px;
+          }
         }
       }
     `
@@ -38,7 +47,6 @@ export default function PanelsPage({data}) {
     return (
         <main css={style}>
             <Header/>
-            {/*<CoverTagTag/>*/}
             <div className={`demo`}>
                 <PanelFF1>
                     <h2>FF I Panel</h2>
