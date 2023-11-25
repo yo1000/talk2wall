@@ -34,7 +34,13 @@ module.exports = {
         {
             resolve: "gatsby-plugin-manifest",
             options: {
+                name: `talk2wall`,
+                short_name: `talk2wall`,
+                start_url: `/`,
                 icon: "src/images/talk2wall-icon.png",
+                background_color: `#000`,
+                theme_color: `#444`,
+                display: `standalone`,
             },
         },
         {
