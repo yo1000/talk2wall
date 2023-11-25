@@ -26,11 +26,7 @@ export default function PanelsPage({data}) {
         max-width: 760px;
 
         margin: 0 auto;
-        padding: 0;
-
-        @media screen and (max-width: 640px) {
-          padding: 0;
-        }
+        padding: 0 1.5rem;
 
         .panel {
           position: relative;
