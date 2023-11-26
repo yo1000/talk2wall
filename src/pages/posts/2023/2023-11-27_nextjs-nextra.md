@@ -2,6 +2,7 @@
 title: Next.jsのnextraテーマを試す
 path: /nextjs-nextra
 created: 2023-11-27T00:00:00.000+09:00
+modified: 2023-11-27T00:00:00.000+09:00
 author: yo1000
 tags:
   - Tech
@@ -19,6 +20,13 @@ https://nextra-docs-template.vercel.app/
 
 公式の手順を追っているだけなので詳細は公式を確認。<br>
 https://nextra.site/docs/docs-theme/start
+
+
+環境
+----------------------------------------
+
+* Node.js v18.17.1
+* npm 9.6.7
 
 
 プロジェクトの作成
