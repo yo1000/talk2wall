@@ -1,7 +1,6 @@
 import * as React from "react";
 import {graphql, Link} from "gatsby";
 import {css} from "@emotion/react";
-import theme from "../styles/theme";
 import Panel from "./Panel";
 
 export default function TagList({tags}) {
@@ -34,7 +33,6 @@ export default function TagList({tags}) {
         a {
           box-shadow: none;
           text-decoration: none;
-          text-shadow: ${theme.colors.blue.textShadow} 1px 1px;
         }
 
         p, ul,
@@ -43,7 +41,6 @@ export default function TagList({tags}) {
           a,
           a:active,
           a:visited {
-            color: ${theme.colors.blue.color};
           }
         }
 
@@ -93,13 +90,10 @@ export default function TagList({tags}) {
             height: 0px;
             margin: 1.25rem -26px;
 
-            background-color: ${theme.colors.black.color};
             border-radius: 3px;
-            border-top: 4px solid #393939;
-            border-left: 2px solid #393939;
-            border-right: 2px solid #393939;
-            border-bottom: 2px solid #838383;
-
+            border-style: solid;
+            border-width: 4px 2px 2px 2px;
+            border-color: var(--tagList-separator-border-color);
           }
         }
 

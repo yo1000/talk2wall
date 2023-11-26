@@ -13,6 +13,7 @@ import PanelFF3 from "../components/PanelFF3";
 import PanelFF2 from "../components/PanelFF2";
 import PanelFF1 from "../components/PanelFF1";
 import PanelFF10 from "../components/PanelFF10";
+import Seo from "../components/Seo";
 
 export default function PanelsPage({data}) {
     const headerLines = 3;
@@ -42,6 +43,7 @@ export default function PanelsPage({data}) {
 
     return (
         <main css={style}>
+            <Seo title={`Panels`}/>
             <Header/>
             <div className={`demo`}>
                 <PanelFF1>

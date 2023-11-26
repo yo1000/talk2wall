@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CoverTagTag from "../components/CoverTagTag";
 import TagList from "../components/TagList";
+import Seo from "../components/Seo";
 
 export default function TagsPage({data}) {
     const style = css`
@@ -47,6 +48,7 @@ export default function TagsPage({data}) {
 
     return (
         <main css={style}>
+            <Seo title={`All tags`}/>
             <Header/>
             <CoverTagTag/>
             <TagList tags={tags}/>

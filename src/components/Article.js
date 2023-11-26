@@ -1,6 +1,5 @@
 import {Link} from "gatsby";
 import React from "react";
-import theme from "../styles/theme";
 import {css} from "@emotion/react";
 import Panel from "./Panel";
 import {StaticImage} from "gatsby-plugin-image";
@@ -21,7 +20,9 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
         a {
           box-shadow: none;
           text-decoration: none;
-          text-shadow: ${theme.colors.blue.textShadow} 1px 1px;
+
+          color: var(--article-anchor-color);
+          text-shadow: var(--article-anchor-text-shadow-color) 1px 1px;
         }
 
         p, ul,
@@ -30,7 +31,8 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
           a,
           a:active,
           a:visited {
-            color: ${theme.colors.blue.color};
+            color: var(--article-anchor-color);
+            text-shadow: var(--article-anchor-text-shadow-color) 1px 1px;
           }
         }
 
@@ -80,13 +82,10 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
             height: 0px;
             margin: 1.25rem -26px;
 
-            background-color: ${theme.colors.black.color};
             border-radius: 3px;
-            border-top: 4px solid #393939;
-            border-left: 2px solid #393939;
-            border-right: 2px solid #393939;
-            border-bottom: 2px solid #838383;
-
+            border-style: solid;
+            border-width: 4px 2px 2px 2px;
+            border-color: var(--article-separator-border-color);
           }
         }
 
@@ -98,12 +97,11 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
           display: block;
           height: 0;
           margin: 1.25rem -26px;
-          background-color: #000;
+
           border-radius: 3px;
-          border-top: 4px solid #393939;
-          border-left: 2px solid #393939;
-          border-right: 2px solid #393939;
-          border-bottom: 2px solid #838383;
+          border-style: solid;
+          border-width: 4px 2px 2px 2px;
+          border-color: var(--article-separator-border-color);
         }
 
         h1,
@@ -112,15 +110,15 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
         }
 
         b, strong {
-          color: ${theme.colors.red.color};
-          text-shadow: ${theme.colors.red.textShadow} 1px 1px;
+          color: var(--article-bold-color);
+          text-shadow: var(--article-bold-text-shadow-color) 1px 1px;
           font-weight: 400;
           font-style: normal;
         }
 
         em {
-          color: ${theme.colors.yellow.color};
-          text-shadow: ${theme.colors.yellow.textShadow} 1px 1px;
+          color: var(--article-italic-color);
+          text-shadow: var(--article-italic-text-shadow-color) 1px 1px;
           font-weight: 400;
           font-style: normal;
         }
@@ -134,14 +132,14 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
           margin: 0 0 1.75rem;
           padding-left: 1rem;
 
-          border-left: 2px solid ${theme.colors.darkBlue.color};
+          border-left: 2px solid var(--article-blockquote-border-color);
           border-radius: 1px;
 
           * {
             font-size: inherit;
             font-style: italic;
-            color: ${theme.colors.darkBlue.color};
-            text-shadow: ${theme.colors.darkBlue.textShadow} 1px 1px;
+            color: var(--article-blockquote-color);
+            text-shadow: var(--article-blockquote-text-shadow-color) 1px 1px;
           }
         }
 
@@ -150,12 +148,12 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
         a:hover,
         a:visited {
           text-decoration: none;
-          color: ${theme.colors.blue.color};
-          text-shadow: ${theme.colors.blue.textShadow} 1px 1px;
+          color: var(--article-anchor-color);
+          text-shadow: var(--article-anchor-text-shadow-color) 1px 1px;
         }
 
         td, th {
-          border-bottom: 1px solid ${theme.colors.white.color};
+          border-bottom: 1px solid var(--article-table-border-color);
         }
 
         .gatsby-resp-image-image {
@@ -177,9 +175,9 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
 
         *:not(pre) > code,
         *:not(pre) > code[class*=language-] {
-          color: #ccc;
-          text-shadow: ${theme.colors.white.textShadow} 1px 1px;
-          background: #2d2d2d;
+          color: var(--article-code-color);
+          text-shadow: var(--article-code-text-shadow-color) 1px 1px;
+          background: var(--article-code-background);
 
           padding: 0 4px;
           border-radius: 4px;
@@ -199,15 +197,6 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
             }
           }
 
-          .gatsby-highlight-code-line {
-            display: block;
-            width: calc(100% + 6em);
-            margin-left: -5em;
-            padding-left: 5em;
-
-            background-color: #434343;
-          }
-
           pre,
           .line-numbers-rows {
             max-height: 100%;
@@ -219,7 +208,7 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
           }
         }
       }
-      
+
       & > nav {
         ul {
           display: flex;
@@ -241,7 +230,7 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
             .panel > div {
               height: calc(2.75rem - 8px);
               margin: auto;
-              
+
               a {
                 line-height: calc(2.75rem - 8px);
               }

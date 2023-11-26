@@ -120,8 +120,8 @@ export default function PostSummary({path, title, body, date, tags}) {
                 padding: 0rem .5rem 0 0;
 
                 a {
-                  color: #6ab4ee;
-                  text-shadow: #292929;
+                  color: var(--postSummary-tags-anchor-color);
+                  text-shadow: var(--postSummary-tags-anchor-text-shadow-color) 1px 1px;
                 }
               }
             }

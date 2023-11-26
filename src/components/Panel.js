@@ -16,21 +16,14 @@ export default function Panel({label, ...props}) {
       }
 
       .content {
-        border-top: 2px solid #838383;
-        border-left: 2px solid #838383;
-        border-right: 2px solid #393939;
-        border-bottom: 2px solid #393939;
-        box-shadow: #292929 0 0 0 2px;
-
-        background: linear-gradient(90deg,
-        rgba(68, 68, 68, 1) 0,
-        rgba(119, 119, 119, 1) 67%);
+        border-width: 2px;
+        border-style: solid;
+        border-color: var(--panel-border-color);
+        box-shadow: var(--panel-box-shadow-color) 0 0 0 2px;
+        background: var(--panel-background);
       }
 
       .label {
-        --panel-label-color: #9494a4;
-        --panel-label-text-shadow-color: #000;
-
         display: inline-block;
         position: absolute;
         top: 0;

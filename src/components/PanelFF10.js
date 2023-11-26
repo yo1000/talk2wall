@@ -1,12 +1,7 @@
 import React from "react";
 import {css} from "@emotion/react";
 
-/**
- *
- * @param {?string} label
- * @constructor
- */
-export default function PanelFF10({label, ...props}) {
+export default function PanelFF10({...props}) {
     const style = css`
       position: relative;
 

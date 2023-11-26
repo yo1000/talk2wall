@@ -5,6 +5,7 @@ import Article from "../components/Article";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CoverAbout from "../components/CoverAbout";
+import Seo from "../components/Seo";
 
 export default function AboutPage({data}) {
     const headerLines = 3;
@@ -27,6 +28,7 @@ export default function AboutPage({data}) {
 
     return (
         <main css={style}>
+            <Seo title={data.markdownRemark.frontmatter.title}/>
             <Header/>
             <CoverAbout/>
             <Article post={data.markdownRemark}/>

@@ -1,8 +1,57 @@
 * {
+  --theme-white-color: #ededed;
+  --theme-white-shadow: #414131;
+  --theme-gray-color: #525a52;
+  --theme-gray-shadow: #a4a4a4;
+  --theme-steel-color: #9494a4;
+  --theme-steel-shadow: #313131;
+  --theme-red-color: #ff1818;
+  --theme-red-shadow: #202020;
+  --theme-yellow-color: #dede08;
+  --theme-yellow-shadow: #292929;
+  --theme-green-color: #00ff00;
+  --theme-green-shadow: #393931;
+  --theme-blue-color: #6ab4ee;
+  --theme-blue-shadow: #292929;
+
+  --panel-background: linear-gradient(90deg, rgba(68, 68, 68, 1) 0, rgba(119, 119, 119, 1) 67%);
+  --panel-border-color: #838383 #393939 #393939 #838383;
+  --panel-box-shadow-color: #292929;
+
+  --panel-label-color: #9494a4;
+  --panel-label-text-shadow-color: #000;
+
+  --article-separator-border-color: #393939 #393939 #838383 #393939;
+
+  --article-anchor-color: var(--theme-blue-color);
+  --article-anchor-text-shadow-color: var(--theme-blue-shadow);
+
+  --article-bold-color: var(--theme-red-color);
+  --article-bold-text-shadow-color: var(--theme-red-shadow);
+
+  --article-italic-color: var(--theme-yellow-color);
+  --article-italic-text-shadow-color: var(--theme-yellow-shadow);
+
+  --article-blockquote-color: var(--theme-steel-color);
+  --article-blockquote-text-shadow-color: var(--theme-steel-shadow);
+  --article-blockquote-border-color: var(--theme-steel-color);
+
+  --article-table-border-color: var(--theme-white-color);
+
+  --article-code-color: #ccc;
+  --article-code-text-shadow-color: #414131;
+  --article-code-background: #2d2d2d;
+
+  --postSummary-tags-anchor-color: var(--theme-blue-color);
+  --postSummary-tags-anchor-text-shadow-color: var(--theme-blue-shadow);
+
+  --tagList-separator-border-color: #393939 #393939 #838383 #393939;
+
+  color: var(--theme-white-color);
+  text-shadow: var(--theme-white-shadow) 1px 1px;
+
   font-family: 'M PLUS 1p', sans-serif;
   word-break: break-all;
-  color: #ededed;
-  text-shadow: #414131 1px 1px;
 
   overscroll-behavior-y: none;
 }
