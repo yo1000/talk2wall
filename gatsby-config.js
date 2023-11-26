@@ -23,10 +23,9 @@ module.exports = {
         "gatsby-plugin-emotion",
         "gatsby-plugin-image",
         {
-            resolve: "gatsby-plugin-google-analytics",
+            resolve: "gatsby-plugin-google-gtag",
             options: {
-                trackingId: "UA-119554407-1",
-                defer: true,
+                trackingIds: ["G-KL62FBMLWN"],
             },
         },
         "gatsby-plugin-react-helmet",
