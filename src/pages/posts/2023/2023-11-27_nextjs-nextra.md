@@ -64,10 +64,17 @@ Next.js構成ファイルを追加
 ```bash
 echo 'const withNextra = require(`nextra`)({
   theme: `nextra-theme-docs`,
-  themeConfig: `./theme.config.jsx`
+  themeConfig: `./theme.config.jsx`,
 })
 
-module.exports = withNextra()
+module.exports = withNextra({
+  output: `export`,
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
+  images: {
+    unoptimized: true,
+  },
+})
 
 // If you have other Next.js configurations, you can pass them as the parameter:
 // module.exports = withNextra({ /* other next.js config */ })
@@ -102,10 +109,24 @@ Hello, world!
 ' > pages/index.mdx
 ```
 
-そして起動確認。
+
+起動確認
+----------------------------------------
+
+開発モード。
 
 ```bash
 npm run dev
+```
+
+http://localhost:3000/
+
+----
+
+SSGしてプロダクションプレビュー。
+
+```bash
+npm run build; npx serve out
 ```
 
 http://localhost:3000/
