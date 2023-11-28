@@ -48,43 +48,43 @@ export default function PanelsPage({data}) {
             <div className={`demo`}>
                 <PanelFF1>
                     <h2>FF I Panel</h2>
-                    <p>demo text</p>
+                    <p>フシギナ　ジュモン　サ　サッサカサ！</p>
                 </PanelFF1>
                 <PanelFF2>
                     <h2>FF II Panel</h2>
-                    <p>demo text</p>
+                    <p>あいことばは　【のばら】です。</p>
                 </PanelFF2>
                 <PanelFF3>
                     <h2>FF III Panel</h2>
-                    <p>demo text</p>
+                    <p>それは　わしたちのことではないか！</p>
                 </PanelFF3>
                 <PanelFF4>
                     <h2>FF IV Panel</h2>
-                    <p>demo text</p>
+                    <p>おれは　しょうきに　もどった！</p>
                 </PanelFF4>
                 <PanelFF5>
                     <h2>FF V Panel</h2>
-                    <p>demo text</p>
+                    <p>カメェェェッー！</p>
                 </PanelFF5>
                 <PanelFF6>
                     <h2>FF VI Panel</h2>
-                    <p>demo text</p>
+                    <p>タコで　すみません。</p>
                 </PanelFF6>
                 <PanelFF7>
                     <h2>FF VII Panel</h2>
-                    <p>demo text</p>
+                    <p>クックック……黒マテリア</p>
                 </PanelFF7>
                 <PanelFF8>
                     <h2>FF VIII Panel</h2>
-                    <p>demo text</p>
+                    <p>おまえは、今月の給料ナシ！</p>
                 </PanelFF8>
                 <PanelFF9>
                     <h2>FF IX Panel</h2>
-                    <p>demo text</p>
+                    <p>捕まえたカエル</p>
                 </PanelFF9>
                 <PanelFF10>
                     <h2>FF X Panel</h2>
-                    <p>demo text</p>
+                    <p>七曜の鏡を手に入れた！</p>
                 </PanelFF10>
             </div>
             <Footer/>
