@@ -29,12 +29,15 @@ export default function Panel({label, ...props}) {
         top: 0;
 
         height: auto;
-        margin-top: -8px;
+        margin-top: -7px;
         margin-left: 6px;
 
-        font-family: 'Kanit' !important;
+        font-family: var(--panel-label-font-family) !important;
         font-size: 12px;
-        font-weight: 900;
+        font-weight: 800;
+        letter-spacing: 0;
+        transform: scale(1, .8);
+        
         color: var(--panel-label-color) !important;
         text-transform: uppercase;
 

@@ -25,7 +25,7 @@ export default function CoverError({status}) {
           top: calc(50% - 4rem);
           
           * {
-            font-family: 'Kings', sans-serif;
+            font-family: var(--coverError-balloon-font-family);
             font-size: 2.5rem;
             letter-spacing: 2px;
           }

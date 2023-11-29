@@ -7,3 +7,4 @@ import '@fontsource/kanit';
 import '@fontsource/niconne';
 import '@fontsource/kings';
 import '@fontsource/jetbrains-mono';
+import '@fontsource-variable/montserrat';

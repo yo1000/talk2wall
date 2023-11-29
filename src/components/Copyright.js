@@ -29,7 +29,7 @@ export default function Copyright() {
           position: relative;
           width: 110px;
           margin: -30px 0 0;
-          font-family: 'Niconne', cursive !important;
+          font-family: var(--copyright-decoration-font-family) !important;
           font-size: 32px;
           vertical-align: middle;
         }

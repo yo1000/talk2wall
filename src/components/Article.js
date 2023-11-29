@@ -164,7 +164,7 @@ export default function Article({post, nextPath, nextTitle, prevPath, prevTitle}
         code *,
         .gatsby-highlight,
         .gatsby-highlight * {
-          font-family: 'JetBrains Mono', monospace;
+          font-family: var(--article-code-font-family);
           font-size: 1em;
         }
 
