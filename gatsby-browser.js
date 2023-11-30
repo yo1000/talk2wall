@@ -3,8 +3,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 import 'prismjs/plugins/line-highlight/prism-line-highlight.css';
 import "prismjs/themes/prism-tomorrow.css"
 import '@fontsource/m-plus-1p';
-import '@fontsource/kanit';
+import '@fontsource/jetbrains-mono';
 import '@fontsource/niconne';
 import '@fontsource/kings';
-import '@fontsource/jetbrains-mono';
-import '@fontsource-variable/montserrat';
+import '@fontsource-variable/nunito-sans/wdth.css';

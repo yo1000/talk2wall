@@ -29,14 +29,14 @@ export default function Panel({label, ...props}) {
         top: 0;
 
         height: auto;
-        margin-top: -7px;
+        margin-top: -5px;
         margin-left: 6px;
 
         font-family: var(--panel-label-font-family) !important;
-        font-size: 12px;
+        font-variation-settings: var(--theme-font-nunito-sans-variation-settings);
+        font-size: 11px;
         font-weight: 800;
         letter-spacing: 0;
-        transform: scale(1, .8);
         
         color: var(--panel-label-color) !important;
         text-transform: uppercase;

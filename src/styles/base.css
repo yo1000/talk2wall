@@ -14,11 +14,12 @@
   --theme-color-blue: #6ab4ee;
   --theme-color-blue-shadow: #292929;
 
-  --theme-font-montserrat: 'Montserrat Variable', sans-serif;
   --theme-font-m-plus-1p: 'M PLUS 1p', sans-serif;
   --theme-font-jetbrains-mono: 'JetBrains Mono', monospace;
   --theme-font-niconne: 'Niconne', cursive;
   --theme-font-kings: 'Kings', sans-serif;
+  --theme-font-nunito-sans: 'Nunito Sans Variable', sans-serif;
+  --theme-font-nunito-sans-variation-settings: "wdth" 125, "opsz" 12;
 
   --panel-background: linear-gradient(90deg, rgba(68, 68, 68, 1) 0, rgba(119, 119, 119, 1) 67%);
   --panel-border-color: #838383 #393939 #393939 #838383;
@@ -26,7 +27,7 @@
 
   --panel-label-color: #bfbfbf;
   --panel-label-text-shadow-color: #000;
-  --panel-label-font-family: var(--theme-font-montserrat);
+  --panel-label-font-family: var(--theme-font-nunito-sans);
 
   --article-separator-border-color: #393939 #393939 #838383 #393939;
 
