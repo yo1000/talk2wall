@@ -1,26 +1,114 @@
 @import "tailwindcss";
+@import 'prismjs/themes/prism-tomorrow.css';
+@import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --gnav-height: 48px;
+  --search-height: 56px;
+
+  --font-m-plus-1p: 'M PLUS 1 Variable', sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono Variable', monospace;
+  --font-niconne: 'Niconne', cursive;
+  --font-kings: 'Kings', sans-serif;
+  --font-nunito-sans: 'Nunito Sans Variable', sans-serif;
+  --font-nunito-sans-variation-settings: "wdth" 125, "opsz" 12;
+
+  --background: #0a0a0a;
+
+  --primary-foreground: #ededed;
+  --primary-foreground-shadow: #414131 1px 1px;
+
+  --secondary-foreground: #a4a4a4;
+  --secondary-foreground-shadow: #525a52 1px 1px;
+
+  --feature-link-foreground: #b5b5cd;
+  --feature-link-foreground-shadow: #2e2e47 1px 1px;
+
+  --feature-active-foreground: #dddd08;
+  --feature-active-foreground-shadow: #292929 1px 1px;
+
+  --feature-inactive-foreground: #525a52;
+  --feature-inactive-foreground-shadow: #a4a4a4 1px 1px;
+
+  --feature-warn-foreground: #525a52;
+  --feature-warn-foreground-shadow: #a4a4a4 1px 1px;
+
+  --feature-error-foreground: #bd0808;
+  --feature-error-foreground-shadow: #202020 1px 1px 0;
+
+  --window-primary-background: linear-gradient(90deg, #3d3c3d, #636363);
+  --window-secondary-background: linear-gradient(90deg, #0f0f10, #1b1b1b);
+  --window-box-shadow:
+    /* right-out */ inset -1px 0 0 0 #1b1b1b,
+    /* bottom-out */ inset 0 -1px 0 0 #1b1b1b,
+    /* top-out */ inset 0 1px 0 0 #2a2a2a,
+    /* left-out */ inset 1px 0 0 0 #2a2a2a,
+    /* top-in */ inset 0 2px 0 0 #747474,
+    /* left-in */ inset 2px 0 0 0 #747474,
+    /* right-in */ inset -2px 0 0 0 #313131,
+    /* bottom-in */ inset 0 -2px 0 0 #313131;
+
+  --window-warn-background: linear-gradient(90deg, #524e08, #524e08);
+  --window-warn-box-shadow:
+    /* right-out */ inset -1px 0 0 0 #1b1b1b,
+    /* bottom-out */ inset 0 -1px 0 0 #1b1b1b,
+    /* top-out */ inset 0 1px 0 0 #2a2a2a,
+    /* left-out */ inset 1px 0 0 0 #2a2a2a,
+    /* top-in */ inset 0 2px 0 0 #837b08,
+    /* left-in */ inset 2px 0 0 0 #837b08,
+    /* right-in */ inset -2px 0 0 0 #393110,
+    /* bottom-in */ inset 0 -2px 0 0 #393110;
+
+  --window-info-background: linear-gradient(90deg, #003462, #003462);
+  --window-info-box-shadow:
+    /* right-out */ inset -1px 0 0 0 #1b1b1b,
+    /* bottom-out */ inset 0 -1px 0 0 #1b1b1b,
+    /* top-out */ inset 0 1px 0 0 #2a2a2a,
+    /* left-out */ inset 1px 0 0 0 #2a2a2a,
+    /* top-in */ inset 0 2px 0 0 #00529c,
+    /* left-in */ inset 2px 0 0 0 #00529c,
+    /* right-in */ inset -2px 0 0 0 #002039,
+    /* bottom-in */ inset 0 -2px 0 0 #002039;
+
+  --checkbox-border-color: #747474 #313131 #313131 #747474;
+
+  --code-background: #525a52;
+
+  --toc-w: 320px;
+  --toc-gap: 0;
+
+  --fadeout-height: 32px;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground: var(--primary-foreground);
+
+  --font-sans: var(--font-m-plus-1p);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Used when switching between light theme and dark theme. */
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--primary-foreground);
+  text-shadow: var(--primary-foreground-shadow) 1px 1px;
+
+  font-family: var(--font-m-plus-1p) Arial, Helvetica, sans-serif;
+
+  & > main {
+    margin-top: calc(var(--gnav-height) + var(--search-height) + 8px);
+  }
+}
+
+code,
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: var(--font-m-plus-1p) monospace;
+  font-variant-ligatures: normal;
 }

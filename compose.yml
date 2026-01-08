@@ -1,0 +1,9 @@
+services:
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    environment:
+      LANG: C.UTF-8
+    volumes:
+      - ./out:/usr/share/nginx/html

@@ -1,0 +1,15 @@
+.about {
+  width: calc(100% - var(--toc-w));
+  margin: 0 auto;
+
+  svg {
+    display: inline-block;
+    margin-left: .25rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .about {
+    width: 100%;
+  }
+}

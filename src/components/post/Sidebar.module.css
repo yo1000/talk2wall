@@ -1,0 +1,49 @@
+.Sidebar {
+  position: sticky;
+  top: calc(var(--gnav-height) + var(--search-height) + 1rem);
+  height: 100dvh;
+  overflow: auto;
+
+  .toc {
+    padding: 1rem;
+
+    background: var(--window-primary-background);
+    box-shadow: var(--window-box-shadow);
+    color: var(--primary-foreground);
+    text-shadow: var(--primary-foreground-shadow);
+
+    ul li:nth-of-type(n+2) {
+      margin-top: .5rem;
+    }
+  }
+
+  .meta {
+    margin-top: -1px;
+    padding: 1rem;
+
+    background: var(--window-primary-background);
+    box-shadow: var(--window-box-shadow);
+    color: var(--primary-foreground);
+    text-shadow: var(--primary-foreground-shadow);
+
+    .tags {
+      ul {
+        display: inline-block;
+
+      }
+      li {
+        display: inline-block;
+        margin-right: .5rem;
+
+        a {
+          color: var(--feature-link-foreground);
+          text-shadow: var(--feature-link-foreground-shadow);
+        }
+      }
+    }
+
+    .date {
+      padding-top: .5rem;
+    }
+  }
+}

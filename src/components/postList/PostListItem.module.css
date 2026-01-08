@@ -1,0 +1,105 @@
+.postListItem {
+  --width: 100%;
+  --height: 208px;
+
+  --extra-width: 320px;
+  --extra-height: 48px;
+
+  --line-height: 25px;
+
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+
+  background: var(--window-primary-background);
+  box-shadow: var(--window-box-shadow);
+  overflow: hidden;
+
+  .body {
+    padding: 16px;
+    word-break: break-all;
+
+    &::before {
+      content: "";
+      float: right;
+
+      inline-size: var(--extra-width);
+      block-size: var(--height);
+
+      shape-outside: inset(
+          calc(100% - var(--extra-height) - 8px)
+          0
+          0
+          calc(100% - var(--extra-width) - 4px)
+      );
+      shape-margin: .125rem;
+
+      opacity: 0; pointer-events: none;
+    }
+
+    .text {
+      max-height: calc(var(--height) - var(--line-height));
+      -webkit-mask-image: linear-gradient(to bottom, #000 85%, transparent 85%);
+      mask-image: linear-gradient(#000 85%, rgba(0, 0, 0, 0) 85%);
+      line-height: var(--line-height);
+
+      h2 {
+        font-weight: bold;
+        margin-bottom: .5rem;
+      }
+    }
+  }
+
+  .extra {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    width: var(--extra-width);
+    height: var(--extra-height);
+    display:flex;
+    align-items: center;
+    justify-content: start;
+
+    background: transparent;
+    box-shadow: var(--window-box-shadow);
+
+    overflow: hidden;
+
+    .tags {
+      max-width: calc(100% - 6.75rem);
+      width: 100%;
+      padding-left: .75rem;
+      padding-right: .25rem;
+      margin-top: -3px;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      color: var(--feature-link-foreground);
+      text-shadow: var(--feature-link-foreground-shadow);
+
+      li {
+        display: inline;
+        white-space: nowrap;
+
+        &:nth-of-type(n + 2) {
+          margin-left: .5rem;
+        }
+
+        a {
+          color: var(--feature-link-foreground);
+          text-shadow: var(--feature-link-foreground-shadow);
+        }
+      }
+    }
+
+    .date {
+      display: inline-block;
+      width: 80px;
+      margin-top: -1px;
+      margin-left: 2px;
+      text-align: center;
+    }
+  }
+}
