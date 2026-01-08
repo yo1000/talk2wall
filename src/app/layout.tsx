@@ -16,7 +16,7 @@ import React from "react";
 
 export const metadata: Metadata = {
   title: "talk2wall",
-  icons: "favicon.svg",
+  icons: "/favicon.svg",
 };
 
 export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
