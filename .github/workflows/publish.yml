@@ -1,0 +1,31 @@
+name: Publish site
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+        # See supported Node.js release schedule at https://github.com/nodejs/release#release-schedule
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out/ --project-name=talk2wall
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
