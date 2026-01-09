@@ -73,7 +73,7 @@ export default async function AboutPage() {
             <h3>ブログ記事</h3>
             <blockquote>
               <p>
-                <a href="https://yo1000.com">talk2wall</a> © ${latestUpdateYear()} by
+                <a href="https://yo1000.com">talk2wall</a> © {latestUpdateYear()} by
                 yo1000 | YO!CHI KIKUCHI is licensed under
                 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
                 <svg x="0px" y="0px" width="1.5rem" height="1.5rem" viewBox="5.5 -3.5 64 64">
@@ -103,7 +103,7 @@ export default async function AboutPage() {
             <blockquote>
               <p>
                 MIT No Attribution License<br/>
-                Copyright ${latestUpdateYear()} yo1000 | YO!CHI KIKUCHI
+                Copyright {latestUpdateYear()} yo1000 | YO!CHI KIKUCHI
               </p>
               <p>
                 <a href="https://opensource.org/license/mit-0">
