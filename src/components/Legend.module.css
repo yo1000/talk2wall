@@ -1,0 +1,16 @@
+.legend {
+  font-family: var(--font-nunito-sans), sans-serif;
+  font-variation-settings: var(--font-nunito-sans-variation-settings);
+
+  position: absolute;
+  top: 0;
+  left: 6px;
+
+  font-weight: 800;
+  font-size: 9px;
+
+  color: var(--legend-foreground);
+  -webkit-text-stroke: 3px var(--legend-foreground-stroke);
+  text-stroke: 3px var(--legend-foreground-stroke);
+  paint-order: stroke;
+}

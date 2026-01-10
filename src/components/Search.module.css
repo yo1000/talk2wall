@@ -13,8 +13,9 @@
   background: var(--background);
   box-shadow: 0 1px 0 rgba(0, 0, 0, .03);
 
-  form {
-    width: min(calc(100% - 2.5rem), 100vw);
+  .query {
+    position: relative;
+    width: calc(100% - 32px);
     min-width: 0;
 
     margin: 0 auto;
@@ -52,7 +53,7 @@
     top: calc(var(--search-height) + 8px);
 
     ul {
-      width: min(calc(100% - 2.5rem), 100vw);
+      width: calc(100% - 32px);
 
       margin: 0 auto;
       padding: .75rem .75rem;

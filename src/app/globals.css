@@ -10,8 +10,8 @@
   --font-jetbrains-mono: 'JetBrains Mono Variable', monospace;
   --font-niconne: 'Niconne', cursive;
   --font-kings: 'Kings', sans-serif;
-  --font-nunito-sans: 'Nunito Sans Variable', sans-serif;
-  --font-nunito-sans-variation-settings: "wdth" 125, "opsz" 12;
+  --font-nunito-sans: 'Nunito Sans Variable';
+  --font-nunito-sans-variation-settings: "wdth" 110, "opsz" 12;
 
   --background: #0a0a0a;
 
@@ -69,6 +69,9 @@
     /* left-in */ inset 2px 0 0 0 #00529c,
     /* right-in */ inset -2px 0 0 0 #002039,
     /* bottom-in */ inset 0 -2px 0 0 #002039;
+
+  --legend-foreground: #bfbfbf;
+  --legend-foreground-stroke: #000;
 
   --checkbox-border-color: #747474 #313131 #313131 #747474;
 

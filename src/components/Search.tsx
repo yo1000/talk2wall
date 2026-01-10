@@ -3,6 +3,7 @@
 import styles from "./Search.module.css";
 import {useEffect, useState} from "react";
 import MiniSearch from "minisearch";
+import Legend from "@/components/Legend";
 
 type IndexPayload = {
   version: number;
@@ -48,9 +49,10 @@ export default function Search({rev}: {rev: string;}) {
 
   return (
     <div className={styles.search}>
-      <form onSubmit={(e) => { e.preventDefault(); }}>
+      <div className={styles.query}>
+        <Legend text={"SEARCH"}/>
         <input id="q" name="q" type="search" placeholder="Search..." value={q} onChange={event => setQ(event.target.value)}/>
-      </form>
+      </div>
       {results && results.length ? (
         <div className={styles.results}>
           <ul>

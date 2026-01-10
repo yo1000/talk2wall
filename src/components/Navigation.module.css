@@ -27,6 +27,12 @@
   z-index: 1000;
 
   .shortcuts,
+  .tags,
+  .logo {
+    position: relative;
+  }
+
+  .shortcuts,
   .tags {
     padding: 0 16px;
 

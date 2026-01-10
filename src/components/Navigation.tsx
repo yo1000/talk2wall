@@ -1,9 +1,11 @@
 import styles from "./Navigation.module.css";
+import Legend from "@/components/Legend";
 
 export default function Navigation({tags}: {tags: {tag: string, count: number}[] | undefined}) {
   return (
     <nav className={styles.navigation}>
       <div className={styles.shortcuts}>
+        <Legend text={"NOTICE"}/>
         <ul>
           <li><a href="/posts">Posts</a></li>
           <li><a href="/tags">Tags</a></li>

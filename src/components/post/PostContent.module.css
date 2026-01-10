@@ -7,6 +7,7 @@
   margin-bottom: 1.5rem;
 
   .title {
+    position: relative;
     width: calc(100% - 4px);
 
     padding: .5rem 1rem;
@@ -205,5 +206,13 @@
   img {
     background: conic-gradient(#ccc 25%, #fff 0 50%, #ccc 0 75%, #fff 0);
     background-size: 24px 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .PostContent {
+    .title {
+      width: 100%;
+    }
   }
 }
