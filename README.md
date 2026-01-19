@@ -8,8 +8,9 @@ How to run
 --------------------------------------------------------------------------------
 
 ```bash
-npm install
-npm run build
+npm install && \
+npm run build && \
+docker compose down && \
 docker compose up
 ```
 
